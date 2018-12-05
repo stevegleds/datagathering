@@ -24,7 +24,14 @@ def main():
                 print(country['IP'], country['Radius'], float(result['City Distance']) <= float(country['Radius']), result['City Distance'])
                 if float(result['City Distance']) <= float(country['Radius']):
                     city_results += 1
-    print('City results total: ', city_results)
+                lat, long, cityLat, cityLong, latLength, longLength = float(result['Latitude']), float(result['Longitude']),\
+                                                                      float(country['Latitude']), float(country['Longitude']),\
+                                                                      float(country['Latitude-Length']), float(country['Longitude-Length'])
+                result['newDistance'] = findGeoDistance(lat, long, cityLat, cityLong, latLength, longLength)
+                result['newCity'] = result['newDistance'] <= float(country['Radius'])
+                # print(newDistance, 'True distance is:', result['City Distance'])
+                # print(newCity, 'In City is: ', result['City?'])
+                # print('City results total: ', city_results)
     results = speed_data  # results is same as input for testing only
     test = findGeoDistance(31.983977, 35.924226, 31.9289, 35.9154, 110885.5465, 94565.95484)
     print(test)

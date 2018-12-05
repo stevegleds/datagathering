@@ -47,7 +47,7 @@ def save_results(raw_file, results):
             writer.writerow([item['IP'], item['Country'], item['Download'], item['Upload'], item['Latency'], item['ISP'],
                              item['Timestamp'], item['Latitude'], item['Longitude'], item['ConnectionType'],
                              item['DeviceID'], item['POP'], item['AppID'], item['ExchangeName'], item['Date Time'],
-                             item['City Distance'], item['City?'], item['Hour'], item['Peak?']])
+                             item['City Distance'], item['City?'], item['Hour'], item['Peak?'], item['newDistance'], item['newCity']])
     f.close()
     return
 
