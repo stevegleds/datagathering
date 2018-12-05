@@ -1,4 +1,7 @@
 05 December 2018
+Moved code for adding peak / city data to module
+Next step add peak true/false
+05 December 2018
 Using real data there is a correlation between my coded results for in city radius and source data.
 Next step is to do the same for peak/ off peak
 05 December 2018
