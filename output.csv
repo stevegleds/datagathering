@@ -1,4 +1,4 @@
-IP,Country,Download,Upload,Latency,ISP,Timestamp,Latitude,Longitude,ConnectionType,DeviceID,POP,AppID,ExchangeName,Date Time,City Distance,City?,New Distance,New City,Hour,"New Hour, Peak?"
+IP,Country,Download,Upload,Latency,ISP,Timestamp,Latitude,Longitude,ConnectionType,DeviceID,POP,AppID,ExchangeName,Date Time,City Distance,City?,New Distance,New City,Hour,New Hour,Peak?
 92.241.37.192 HTTP/1.1,JO,19.176,18.817,127,Umniah,1.54E+12,31.983977,35.924226,cellular,00040793-dd52-4522-b7e2-38832ee405f0,FRA,com.askfm,mopub,26/11/2018 17:24,6164.011884,Yes,6164.0118838950175,True,17,17,Yes
 92.241.37.192 HTTP/1.1,JO,6.45,0,122,Umniah,1.54E+12,31.983977,35.924226,cellular,00040793-dd52-4522-b7e2-38832ee405f0,FRA,com.askfm,mopub,26/11/2018 17:24,6164.011884,Yes,6164.0118838950175,True,17,17,Yes
 92.241.37.192 HTTP/1.1,JO,2.394,13.749,121,Umniah,1.54E+12,31.983977,35.924226,cellular,00040793-dd52-4522-b7e2-38832ee405f0,FRA,com.askfm,mopub,26/11/2018 17:24,6164.011884,Yes,6164.0118838950175,True,17,17,Yes

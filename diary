@@ -1,3 +1,5 @@
+06 December 2018
+Used pandas to generate pivot tables
 05 December 2018
 Moved code for adding peak / city data to module
 Next step add peak true/false

@@ -1,5 +1,6 @@
 from parse import parse, save_results
 from incity import findGeoDistance, incity, addcitypeaktimedata
+import pandas as pd
 
 DATA_FILE = 'mesample.csv'  # this is the raw data
 OUTPUT_FILE = 'output.csv'  # this is the raw data with fields for city and peak time info
@@ -21,6 +22,9 @@ def main():
     results = addcitypeaktimedata(countries, speed_data)
     #  results = speed_data  # results is same as input for testing only
     save_results(OUTPUT_FILE, results)
+    df = pd.read_csv(OUTPUT_FILE)
+    print(df.head())
+    print(pd.pivot_table(df, index=["Country", "New City", "Peak?"], values=["Download"], aggfunc='count'))
 
 
 if __name__ == "__main__":
