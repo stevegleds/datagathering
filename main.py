@@ -24,7 +24,7 @@ def main():
     save_results(OUTPUT_FILE, results)
     df = pd.read_csv(OUTPUT_FILE)
     print(df.head())
-    print(pd.pivot_table(df, index=["Country", "New City", "Peak?"], values=["Download"], aggfunc='count'))
+    print(pd.pivot_table(df, index=["Country", "New City", "Peak?"], values=["Download"], aggfunc=['count', 'mean', 'median']))
 
 
 if __name__ == "__main__":
