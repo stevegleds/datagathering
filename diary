@@ -1,3 +1,5 @@
+08 December 2018
+Created menu so that once the output file is created I can work on analysing without repeating file creation
 07 December 2018
 Successfully processed data using pandas and exported pivot results to csv.
 Checked these with the sample data and get good correlation.
