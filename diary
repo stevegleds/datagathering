@@ -1,3 +1,9 @@
+07 December 2018
+Successfully processed data using pandas and exported pivot results to csv.
+Checked these with the sample data and get good correlation.
+However, this is summary data for detailed i.e. city/peak/connection type.
+Need to also produce summary for high level (all country, all city, etc. ).
+todo find a way to produce all possible variations in panda.
 06 December 2018
 Used pandas to generate pivot tables
 Next step, finish data preparation by using hour to determine peak or off peak

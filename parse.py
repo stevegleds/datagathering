@@ -42,13 +42,13 @@ def save_results(raw_file, results):
         writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(['IP',	'Country',	'Download',	'Upload',	'Latency',	'ISP',	'Timestamp',	'Latitude',	'Longitude',
                          'ConnectionType', 'DeviceID',	'POP',	'AppID',	'ExchangeName',	'Date Time',
-                         'City Distance',	'City?',	'New Distance', 'New City', 'Hour', 'New Hour', 'Peak?'])
+                         'City Distance',	'City?',	'New Distance', 'New City', 'Hour', 'New Hour', 'Peak?', 'New Peak'])
         for item in results:
             writer.writerow([item['IP'], item['Country'], item['Download'], item['Upload'], item['Latency'], item['ISP'],
                              item['Timestamp'], item['Latitude'], item['Longitude'], item['ConnectionType'],
                              item['DeviceID'], item['POP'], item['AppID'], item['ExchangeName'], item['Date Time'],
                              item['City Distance'], item['City?'], item['newDistance'],
-                             item['newCity'], item['Hour'], item['newHour'], item['Peak?']])
+                             item['newCity'], item['Hour'], item['newHour'], item['Peak?'], item['newPeak']])
     f.close()
     return
 

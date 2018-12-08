@@ -29,6 +29,8 @@ def addcitypeaktimedata(countries: dict, speed_data: dict):
                 result['newDistance'] = findGeoDistance(lat, long, cityLat, cityLong, latLength, longLength)
                 result['newCity'] = result['newDistance'] <= float(country['Radius'])
                 result['newHour'] = int(result['Date Time'][-5:-3])
+                result['newPeak'] = int(country['Peak-End']) >= result['newHour'] >= int(country['Peak-Start'])
+                # todo remove int() if not needed
                 # TODO add 'peak' calculation
                 # print(newDistance, 'True distance is:', result['City Distance'])
                 # print(newCity, 'In City is: ', result['City?'])

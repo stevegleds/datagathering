@@ -9,3 +9,6 @@ ConnectionType	DeviceID	POP	AppID	ExchangeName	Date Time	City Distance
 Calculaations:
 =SQRT(((H2-centre_lat)*length_lat)^2 + ((I2-centre_long)*length_long)^2)
 
+************ TODO ************
+Find a way to fix using 'IP' as column header for Country in one of the files.
+
