@@ -1,5 +1,5 @@
 from parse import parse, save_results
-from dataprocessing import findGeoDistance, incity, addcitypeaktimedata, increaseradius, getdistance
+from dataprocessing import findGeoDistance, incity, addcitypeaktimedata, getdistance
 import pandas as pd
 
 DATA_FILE = 'mesample.csv'  # this is the raw data
@@ -57,8 +57,11 @@ def main():
             df['Radius'] = df['Country'].map(countryfile.set_index('Country')['Radius'])
             df['CityLat'] = df['Country'].map(countryfile.set_index('Country')['Latitude'])
             df['CityLong'] = df['Country'].map(countryfile.set_index('Country')['Longitude'])
-            df['Distance'] = getdistance(df)
-            print(df[['Date Time', 'Country', 'Radius', 'CityLat', 'CityLong']])
+            df['LatLength'] = df['Country'].map(countryfile.set_index('Country')['Latitude-Length'])
+            df['LongLength'] = df['Country'].map(countryfile.set_index('Country')['Longitude-Length'])
+            df['Distance'] = df.apply(getdistance, axis=1)
+            df['City'] = df['Distance'] <= df['Radius']
+            print(df[['Date Time', 'Country', 'Radius', 'City']])
 
 
 if __name__ == "__main__":

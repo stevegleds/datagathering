@@ -41,10 +41,8 @@ def addcitypeaktimedata(countries: dict, speed_data: dict):
 
 
 def getdistance(df):
-
-
     #   =SQRT(((H2-centre_lat)*lengthlat)^2 + ((I2-centre_long)*lengthlong)^2)
-    lat_distance = (lat - centrelat) * lengthlat
-    long_distance = (long - centrelong) * lengthlong
+    lat_distance = (df['Latitude'] - df['CityLat']) * df['LatLength']
+    long_distance = (df['Longitude'] - df['CityLong']) * df['LongLength']
     print(lat_distance, long_distance)
     return sqrt((lat_distance ** 2) + (long_distance ** 2))
