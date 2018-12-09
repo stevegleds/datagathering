@@ -46,3 +46,8 @@ def getdistance(df):
     long_distance = (df['Longitude'] - df['CityLong']) * df['LongLength']
     print(lat_distance, long_distance)
     return sqrt((lat_distance ** 2) + (long_distance ** 2))
+
+
+def getpeak(df):
+    #  print('gettingpeak', df['Peak Start'], df['Hour'], df['Peak End'])
+    return df['Peak End'] >= df['Hour'] >= df["Peak Start"]

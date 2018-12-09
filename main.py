@@ -1,5 +1,5 @@
 from parse import parse, save_results
-from dataprocessing import findGeoDistance, incity, addcitypeaktimedata, getdistance
+from dataprocessing import findGeoDistance, incity, addcitypeaktimedata, getdistance, getpeak
 import pandas as pd
 
 DATA_FILE = 'mesample.csv'  # this is the raw data
@@ -61,7 +61,12 @@ def main():
             df['LongLength'] = df['Country'].map(countryfile.set_index('Country')['Longitude-Length'])
             df['Distance'] = df.apply(getdistance, axis=1)
             df['City'] = df['Distance'] <= df['Radius']
-            print(df[['Date Time', 'Country', 'Radius', 'City']])
+            df['Hour'] = df['Date Time'].dt.hour
+            #  int(country['Peak-End']) >= result['newHour'] >= int(country['Peak-Start'])
+            df['Peak End'] = df['Country'].map(countryfile.set_index('Country')['Peak-End'])
+            df['Peak Start'] = df['Country'].map(countryfile.set_index('Country')['Peak-Start'])
+            df['Peak'] = df.apply(getpeak, axis=1)
+            print(df[['Date Time', 'Country', 'Hour', 'City', 'Peak']])
 
 
 if __name__ == "__main__":
