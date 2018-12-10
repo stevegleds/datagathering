@@ -2,8 +2,10 @@ from parse import parse, save_results
 from dataprocessing import findGeoDistance, incity, addcitypeaktimedata, getdistance, getpeak
 import pandas as pd
 
+
 DATA_FILE = 'mesample.csv'  # this is the raw data
 EXCEL_FILE = 'mesample.xlsx'
+#  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'output.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
 PIVOT_FILE = 'pivotresults.csv'  # contains summary results
@@ -67,6 +69,7 @@ def main():
             df['Peak Start'] = df['Country'].map(countryfile.set_index('Country')['Peak-Start'])
             df['Peak'] = df.apply(getpeak, axis=1)
             print(df[['Date Time', 'Country', 'Hour', 'City', 'Peak']])
+            df.to_csv("df.csv")
 
 
 if __name__ == "__main__":
