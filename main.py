@@ -1,5 +1,5 @@
 from parse import parse, save_results
-from dataprocessing import findGeoDistance, incity, addcitypeaktimedata, getdistance, getpeak
+from dataprocessing import findGeoDistance, incity, addcitypeaktimedata, getdistance, getpeak, addextradata
 import pandas as pd
 
 
@@ -15,6 +15,7 @@ print('Output file used is:', OUTPUT_FILE)
 
 
 def main():
+    outputfilecreated = False
     ans = True
     while ans:
         print('''
@@ -29,6 +30,7 @@ def main():
         6 Testing options
         
         7 Do it all in pandas
+        8 Create pivot table(s)
         ''')
         ans = int(input('What do you want?'))
         if ans == 1:
@@ -39,9 +41,9 @@ def main():
             results = addcitypeaktimedata(countries, speed_data)
             save_results(OUTPUT_FILE, results)
         if ans == 4:
-            df = pd.read_csv(OUTPUT_FILE)
-            print(df.head())
-            pivot = pd.pivot_table(df, index=["Country", "New City", "New Peak", "ConnectionType"], values=["Download"],
+            dfresults = pd.read_csv(OUTPUT_FILE)
+            print(dfresults.head())
+            pivot = pd.pivot_table(dfresults, index=["Country", "New City", "New Peak", "ConnectionType"], values=["Download"],
                            aggfunc=['count', 'sum', 'mean', 'median'])
             print(pivot)
         if ans == 5:
@@ -49,27 +51,24 @@ def main():
                 pivot.to_csv(f)
             f.close()
         if ans == 6:
-            print(df['Country'])
+            print(dfresults['Country'])
             pass
-        if ans == 7:  # do it all in pandas
-            countryfile = pd.read_csv(CONSTANTS_FILE)
-            df = pd.read_excel(EXCEL_FILE)
-            df['Date Time'] = pd.to_datetime(df['Timestamp'], unit='ms')
-            print(df.head())
-            df['Radius'] = df['Country'].map(countryfile.set_index('Country')['Radius'])
-            df['CityLat'] = df['Country'].map(countryfile.set_index('Country')['Latitude'])
-            df['CityLong'] = df['Country'].map(countryfile.set_index('Country')['Longitude'])
-            df['LatLength'] = df['Country'].map(countryfile.set_index('Country')['Latitude-Length'])
-            df['LongLength'] = df['Country'].map(countryfile.set_index('Country')['Longitude-Length'])
-            df['Distance'] = df.apply(getdistance, axis=1)
-            df['City'] = df['Distance'] <= df['Radius']
-            df['Hour'] = df['Date Time'].dt.hour
-            #  int(country['Peak-End']) >= result['newHour'] >= int(country['Peak-Start'])
-            df['Peak End'] = df['Country'].map(countryfile.set_index('Country')['Peak-End'])
-            df['Peak Start'] = df['Country'].map(countryfile.set_index('Country')['Peak-Start'])
-            df['Peak'] = df.apply(getpeak, axis=1)
-            print(df[['Date Time', 'Country', 'Hour', 'City', 'Peak']])
-            df.to_csv("df.csv")
+        if ans == 7:  # do it all in pandas:
+            dfcountry = pd.read_csv(CONSTANTS_FILE)
+            dfresults = pd.read_excel(EXCEL_FILE)
+            dfresults = addextradata(dfresults, dfcountry)
+            print(dfresults[['Date Time', 'Country', 'Hour', 'City', 'Peak']])
+            dfresults.to_csv(OUTPUT_FILE)
+            outputfilecreated = True
+        if ans == 8:
+            if not outputfilecreated:
+                print("Please process raw data file before analysing. Option 7.")
+            else:
+                print(dfresults.head())
+                pivot = pd.pivot_table(dfresults, index=["Country", "City", "Peak", "ConnectionType"],
+                                       values=["Download"],
+                                       aggfunc=['count', 'sum', 'mean', 'median'])
+                print(pivot)
 
 
 if __name__ == "__main__":

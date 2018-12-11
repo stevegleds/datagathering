@@ -1,3 +1,6 @@
+11 December 2018
+Added option to export pivot file
+Next step : remove old non-pandas code
 10 December 2018
 Added export to csv option to option 7 in menu.
 09 December 2018
