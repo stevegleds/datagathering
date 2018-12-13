@@ -3,14 +3,14 @@ from dataprocessing import findGeoDistance, incity, addcitypeaktimedata, getdist
 import pandas as pd
 
 
-DATA_FILE = 'mesample.csv'  # this is the raw data
+CSV_FILE = '13mydsp2.csv'  # this is the raw data
 EXCEL_FILE = 'mesample.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'output.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
 PIVOT_FILE = 'pivotresults.csv'  # contains summary results
 
-print('Data file used is: ', DATA_FILE)
+print('Data file used is: ', CSV_FILE)
 print('Output file used is:', OUTPUT_FILE)
 
 
@@ -34,7 +34,7 @@ def main():
         ''')
         ans = int(input('What do you want?'))
         if ans == 1:
-            speed_data = parse(DATA_FILE, ',')
+            speed_data = parse(CSV_FILE, ',')
         if ans == 2:
             countries = parse(CONSTANTS_FILE, ',')
         if ans == 3:
@@ -55,10 +55,13 @@ def main():
             pass
         if ans == 7:  # do it all in pandas:
             dfcountry = pd.read_csv(CONSTANTS_FILE)
-            dfresults = pd.read_excel(EXCEL_FILE)
+            dfresults = pd.read_csv(CSV_FILE)
             dfresults = addextradata(dfresults, dfcountry)
             print(dfresults[['Date Time', 'Country', 'Hour', 'City', 'Peak']])
-            dfresults.to_csv(OUTPUT_FILE)
+            try:
+                dfresults.to_csv(OUTPUT_FILE)
+            except:
+                print(OUTPUT_FILE, "is open")
             outputfilecreated = True
         if ans == 8:
             if not outputfilecreated:
@@ -69,6 +72,7 @@ def main():
                                        values=["Download"],
                                        aggfunc=['count', 'sum', 'mean', 'median'])
                 print(pivot)
+                pivot.to_csv(PIVOT_FILE)
 
 
 if __name__ == "__main__":
