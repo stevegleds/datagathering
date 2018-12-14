@@ -1,3 +1,7 @@
+14 December 2018
+Was working on getting 3 letter country codes but Diego is modifying the script
+Tidied up code to comment out unused.
+Next step is to look at presenting data
 13 December 2018
 Added code to create pivot file
 Updated constants to include Tel Aviv, Israel
