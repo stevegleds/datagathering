@@ -1,4 +1,7 @@
 15 December 2018
+created parsing code to produce dataframe of timestamp:countrycode information
+next step add new column to main data with REAL country codes
+15 December 2018
 Added latest data from 14 December 2018 and log files from 14 December 2018
 Next step find country codes
 14 December 2018

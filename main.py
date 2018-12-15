@@ -1,13 +1,15 @@
 from dataprocessing import addextradata
+from parserawdata import get3lettercountrycodes
 import pandas as pd
 
 
-CSV_FILE = 'mesample.csv'  # this is the raw data
+CSV_FILE = 'logdata.csv'  # this is the raw data
 EXCEL_FILE = 'mesample.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'output.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
 PIVOT_FILE = 'pivotresults.csv'  # contains summary results
+MYDSP_LOG_FILE = "html5test.2018-12-13-21.log"  # needed to get correct country codes (3 letters)
 
 print('Data file used is: ', CSV_FILE)
 print('Output file used is:', OUTPUT_FILE)
@@ -19,7 +21,9 @@ def main():
     while ans:
         print('''
         1 Parse Source File
-        2 Create Pivot table Country > City > Peak > Type
+        2 Parse log file to get country codes from mydsp
+        3 Create Pivot table Country > City > Peak > Type
+        
         ''')
         ans = int(input('What do you want?'))
         if ans == 1:  # do it all in pandas:
@@ -39,6 +43,9 @@ def main():
                 print(OUTPUT_FILE, "is open")
             outputfilecreated = True
         if ans == 2:
+            countrycodes = get3lettercountrycodes(MYDSP_LOG_FILE)
+            print(countrycodes)
+        if ans == 3:
             if not outputfilecreated:
                 print("Please process raw data file before analysing. Option 7.")
             else:
