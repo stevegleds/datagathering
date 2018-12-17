@@ -3,13 +3,13 @@ from parserawdata import get3lettercountrycodes
 import pandas as pd
 
 
-CSV_FILE = 'logdata.csv'  # this is the raw data
+CSV_FILE = '12-12.csv'  # this is the raw data
 EXCEL_FILE = 'mesample.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'output.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
 PIVOT_FILE = 'pivotresults.csv'  # contains summary results
-MYDSP_LOG_FILE = "html5test.2018-12-13-21.log"  # needed to get correct country codes (3 letters)
+MYDSP_LOG_FILE = "12-12.log"  # needed to get correct country codes (3 letters)
 COUNTRY_CODE_FILE = "countrycode.csv"
 
 print('Data file used is: ', CSV_FILE)
@@ -20,16 +20,16 @@ def main():
     outputfilecreated = False
     dfcountry = pd.read_csv(CONSTANTS_FILE)
     dfresults = pd.read_csv(CSV_FILE)
-    dfresults["Timestamp"] = pd.to_numeric(dfresults["Timestamp"])
+    print('Main df datatypes: /n', dfresults.dtypes)
     ans = True
     while ans:
         print('''
-        1 Parse log file to get country codes from mydsp
-        2 Parse Source File
+        1 Parse log file to get country codes from mydsp 
+        2 Parse Source File 
         3 Create Pivot table Country > City > Peak > Type
         
         ''')
-        ans = int(input('What do you want?'))
+        ans = int(input('What do you want? \n'))
         if ans == 1:
                 dfcountrycodes = get3lettercountrycodes(MYDSP_LOG_FILE)
                 print('Raw country codes are: ', dfcountrycodes)
@@ -42,7 +42,7 @@ def main():
             print("Use the following files?")
             print('Data file used is: ', CSV_FILE)
             print('Output file used is:', OUTPUT_FILE)
-            response = input("Y to continue; any other key to abort /n" )
+            response = input("Y to continue; any other key to abort \n" )
             if not response.lower():
                 pass
             dfresults = addextradata(dfresults, dfcountry)

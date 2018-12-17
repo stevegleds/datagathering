@@ -1,11 +1,16 @@
+17 December 2018
+Problem with adding column was using wrong timestamp data in log file - fixed.
+Next step : fix pivot table to use new codes and also country data and clean up code
 16 December 2018
 Trying to add new column but getting index issue. May be a datatype issue.
 15 December 2018
 created parsing code to produce dataframe of timestamp:countrycode information
 next step add new column to main data with REAL country codes
+17 December 2018
 15 December 2018
 Added latest data from 14 December 2018 and log files from 14 December 2018
 Next step find country codes
+17 December 2018
 14 December 2018
 Was working on getting 3 letter country codes but Diego is modifying the script
 Tidied up code to comment out unused.
