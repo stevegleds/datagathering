@@ -21,6 +21,13 @@ def addextradata(dfresults, dfcountry):
     return dfresults
 
 
+def addcountrycodedata(dfresults, dfcountrycodes):
+    dfresults = pd.merge(left=dfresults, right=dfcountrycodes, how='left', left_on='Timestamp', right_on='Raw Timestamp')
+    # dfresults['Raw Country Code'] = dfresults['Timestamp'].map(dfcountrycodes.set_index('Raw Timestamp')['Raw countrycode'])
+    print("new country info is:", dfresults[])
+    return dfresults
+
+
 def getdistance(df):
     #   =SQRT(((H2-centre_lat)*lengthlat)^2 + ((I2-centre_long)*lengthlong)^2)
     lat_distance = (df['Latitude'] - df['CityLat']) * df['LatLength']

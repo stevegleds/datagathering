@@ -1,3 +1,5 @@
+16 December 2018
+Trying to add new column but getting index issue. May be a datatype issue.
 15 December 2018
 created parsing code to produce dataframe of timestamp:countrycode information
 next step add new column to main data with REAL country codes
