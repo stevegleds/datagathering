@@ -11,13 +11,9 @@ def addextradata(dfresults, dfcountry):
     print("dfcountry datatypes\n", dfcountry.dtypes)
     dfresults = pd.merge(left=dfresults, right=dfcountry, how='left', left_on='Raw Country Code',
                          right_on='Country Code 3')
+    #  todo find a way to rename columns to more meaningful
     # dfresults.rename(index=str, columns={"Latitude_x": "Latitude", "Longitude_x": "Longitude", "Latitude_y": "CityLat", "Longitude_y": "CityLong"})
     print("df results datatypes with added columns: \n", dfresults.dtypes)
-    # dfresults['Radius'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Radius'])
-    # dfresults['CityLat'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Latitude'])
-    # dfresults['CityLong'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Longitude'])
-    # dfresults['LatLength'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Latitude-Length'])
-    # dfresults['LongLength'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Longitude-Length'])
     dfresults['Distance'] = dfresults.apply(getdistance, axis=1)
     dfresults['City'] = dfresults['Distance'] <= dfresults['Radius']
     dfresults['Hour'] = dfresults['Date Time'].dt.hour

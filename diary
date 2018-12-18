@@ -1,4 +1,8 @@
 18 December 2018
+Changed data processing from using .map to .merge. Quicker and accurate
+Also added set of 3 letter codes.
+Need to look at field names and duplicate columns in the merge
+18 December 2018
 Updated country info file
 Now need to change lookup for city and peak time to use 3 letter codes
 17 December 2018
