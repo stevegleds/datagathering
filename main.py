@@ -38,7 +38,6 @@ def main():
                 print('Raw country codes are: ', dfcountrycodes)
                 print('First few results before country codes', dfresults.head())
                 dfcountrycodes.to_csv(COUNTRY_CODE_FILE)
-
                 dfresults = addcountrycodedata(dfresults, dfcountrycodes)
 
         if ans == 2:  # do it all in pandas:

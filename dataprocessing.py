@@ -6,16 +6,16 @@ import pandas as pd
 def addextradata(dfresults, dfcountry):
     dfresults['Date Time'] = pd.to_datetime(dfresults['Timestamp'], unit='ms')
     print(dfresults.head())
-    dfresults['Radius'] = dfresults['Country'].map(dfcountry.set_index('Country')['Radius'])
-    dfresults['CityLat'] = dfresults['Country'].map(dfcountry.set_index('Country')['Latitude'])
-    dfresults['CityLong'] = dfresults['Country'].map(dfcountry.set_index('Country')['Longitude'])
-    dfresults['LatLength'] = dfresults['Country'].map(dfcountry.set_index('Country')['Latitude-Length'])
-    dfresults['LongLength'] = dfresults['Country'].map(dfcountry.set_index('Country')['Longitude-Length'])
+    dfresults['Radius'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Radius'])
+    dfresults['CityLat'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Latitude'])
+    dfresults['CityLong'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Longitude'])
+    dfresults['LatLength'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Latitude-Length'])
+    dfresults['LongLength'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Longitude-Length'])
     dfresults['Distance'] = dfresults.apply(getdistance, axis=1)
     dfresults['City'] = dfresults['Distance'] <= dfresults['Radius']
     dfresults['Hour'] = dfresults['Date Time'].dt.hour
-    dfresults['Peak End'] = dfresults['Country'].map(dfcountry.set_index('Country')['Peak-End-GMT'])
-    dfresults['Peak Start'] = dfresults['Country'].map(dfcountry.set_index('Country')['Peak-Start-GMT'])
+    dfresults['Peak End'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Peak-End-GMT'])
+    dfresults['Peak Start'] = dfresults['Country'].map(dfcountry.set_index('Country Code 2')['Peak-Start-GMT'])
     dfresults['Peak'] = dfresults.apply(getpeak, axis=1)
     return dfresults
 
