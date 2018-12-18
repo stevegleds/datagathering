@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-def get3lettercountrycodes():
+def get3lettercountrycodes(countrycodeset):
     values = []
     currentdir = os.getcwd() + "\\logs"  # todo this breaks because it keeps add 'logs' to the path. Need to find a beter way
     print(currentdir)
@@ -16,14 +16,11 @@ def get3lettercountrycodes():
                     time = int(line[timestamploc + 5: timestamploc + 15] + line[timestamploc + 16: timestamploc + 19])
                     countryloc = line.find("&country=")
                     country = line[countryloc + 9: countryloc + 12]
-                    print(time, country)
-                    # if time.isdigit():
-                    values.append([time, country])
+                    if country in countrycodeset:
+                        values.append([time, country])
     df = pd.DataFrame.from_records(values, columns=['Raw Timestamp', "Raw Country Code"])
-    print(df)
-    print('Timestamps only: \n', df['Raw Timestamp'].dtype)
-    print(df.dtypes)
+    # print(df)
     df['Raw Timestamp'] = pd.to_numeric(df["Raw Timestamp"])
-    print(df.dtypes)
+    print("Data types for Raw Country codes are:", df.dtypes)
     # print('duplicates:', df.columns.idx.duplicated())
     return df

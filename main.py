@@ -11,6 +11,8 @@ CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
 PIVOT_FILE = 'pivotresults.csv'  # contains summary results
 MYDSP_LOG_FILE = "12-12.log"  # needed to get correct country codes (3 letters)
 COUNTRY_CODE_FILE = "countrycode.csv"
+#  countrycodeset is used to filter out unneeded countries
+countrycodeset = {"SAU", "ARE", "JOR", "ISR", "KWT", "OMN", "TUR", "QAT", "EGY", "BHR"}
 
 print('Data file used is: ', CSV_FILE)
 print('Output file used is:', OUTPUT_FILE)
@@ -34,7 +36,7 @@ def main():
         except:
             print('Please choose a number')
         if ans == 1:
-                dfcountrycodes = get3lettercountrycodes()
+                dfcountrycodes = get3lettercountrycodes(countrycodeset)
                 print('Raw country codes are: ', dfcountrycodes)
                 print('First few results before country codes', dfresults.head())
                 dfcountrycodes.to_csv(COUNTRY_CODE_FILE)
