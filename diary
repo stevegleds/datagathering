@@ -1,4 +1,7 @@
 17 December 2018
+Pivot table is better
+Next step is to update country info to
+17 December 2018
 Problem with adding column was using wrong timestamp data in log file - fixed.
 Next step : fix pivot table to use new codes and also country data and clean up code
 16 December 2018

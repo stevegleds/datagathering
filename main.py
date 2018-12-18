@@ -3,7 +3,7 @@ from parserawdata import get3lettercountrycodes
 import pandas as pd
 
 
-CSV_FILE = '12-12.csv'  # this is the raw data
+CSV_FILE = 'codetest.csv'  # this is the raw data
 EXCEL_FILE = 'mesample.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'output.csv'  # this is the raw data with fields for city and peak time info
@@ -31,7 +31,7 @@ def main():
         ''')
         ans = int(input('What do you want? \n'))
         if ans == 1:
-                dfcountrycodes = get3lettercountrycodes(MYDSP_LOG_FILE)
+                dfcountrycodes = get3lettercountrycodes()
                 print('Raw country codes are: ', dfcountrycodes)
                 print('First few results before country codes', dfresults.head())
                 dfcountrycodes.to_csv(COUNTRY_CODE_FILE)
@@ -42,11 +42,11 @@ def main():
             print("Use the following files?")
             print('Data file used is: ', CSV_FILE)
             print('Output file used is:', OUTPUT_FILE)
-            response = input("Y to continue; any other key to abort \n" )
-            if not response.lower():
+            response = input("Y to continue; any other key to abort \n")
+            if not response.lower() == 'y':
                 pass
             dfresults = addextradata(dfresults, dfcountry)
-            print(dfresults[['Date Time', 'Country', 'Hour', 'City', 'Peak']])
+            print(dfresults[['Date Time', 'Raw Country Code', 'Hour', 'City', 'Peak']])
             try:
                 dfresults.to_csv(OUTPUT_FILE)
             except:
@@ -57,7 +57,7 @@ def main():
                 print("Please process raw data file before analysing. Option 7.")
             else:
                 print(dfresults.head())
-                pivot = pd.pivot_table(dfresults, index=["Country", "City", "Peak", "ConnectionType"],
+                pivot = pd.pivot_table(dfresults, index=["Raw Country Code", "City", "Peak", "ConnectionType"],
                                        values=["Download"],
                                        aggfunc=['count', 'sum', 'mean', 'median'])
                 print(pivot)
