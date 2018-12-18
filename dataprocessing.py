@@ -14,9 +14,8 @@ def addextradata(dfresults, dfcountry):
     dfresults['Distance'] = dfresults.apply(getdistance, axis=1)
     dfresults['City'] = dfresults['Distance'] <= dfresults['Radius']
     dfresults['Hour'] = dfresults['Date Time'].dt.hour
-    #  int(country['Peak-End']) >= result['newHour'] >= int(country['Peak-Start'])
-    dfresults['Peak End'] = dfresults['Country'].map(dfcountry.set_index('Country')['Peak-End'])
-    dfresults['Peak Start'] = dfresults['Country'].map(dfcountry.set_index('Country')['Peak-Start'])
+    dfresults['Peak End'] = dfresults['Country'].map(dfcountry.set_index('Country')['Peak-End-GMT'])
+    dfresults['Peak Start'] = dfresults['Country'].map(dfcountry.set_index('Country')['Peak-Start-GMT'])
     dfresults['Peak'] = dfresults.apply(getpeak, axis=1)
     return dfresults
 

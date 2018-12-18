@@ -3,7 +3,7 @@ import os
 
 def get3lettercountrycodes():
     values = []
-    currentdir = os.getcwd() + "\\logs"
+    currentdir = os.getcwd() + "\\logs"  # todo this breaks because it keeps add 'logs' to the path. Need to find a beter way
     print(currentdir)
     os.chdir(currentdir)
     for filename in os.listdir(currentdir):

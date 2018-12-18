@@ -3,7 +3,7 @@ from parserawdata import get3lettercountrycodes
 import pandas as pd
 
 
-CSV_FILE = 'codetest.csv'  # this is the raw data
+CSV_FILE = '12-18.csv'  # this is the raw data
 EXCEL_FILE = 'mesample.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'output.csv'  # this is the raw data with fields for city and peak time info
@@ -29,7 +29,10 @@ def main():
         3 Create Pivot table Country > City > Peak > Type
         
         ''')
-        ans = int(input('What do you want? \n'))
+        try:
+            ans = int(input('What do you want? \n'))
+        except:
+            print('Please choose a number')
         if ans == 1:
                 dfcountrycodes = get3lettercountrycodes()
                 print('Raw country codes are: ', dfcountrycodes)
