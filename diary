@@ -1,3 +1,6 @@
+20 December 2018
+Lukas changed his script and now it includes the country code that I need.
+Changed addextradata function to use this data and also moved the country filter to after the processing to limit output
 18 December 2018
 Changed data processing from using .map to .merge. Quicker and accurate
 Also added set of 3 letter codes.

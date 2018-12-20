@@ -9,17 +9,20 @@ def addextradata(dfresults, dfcountry):
     print("dfcounty head:\n", dfcountry.head())
     print("dfresults datatypes\n", dfresults.dtypes)
     print("dfcountry datatypes\n", dfcountry.dtypes)
-    dfresults = pd.merge(left=dfresults, right=dfcountry, how='left', left_on='Raw Country Code',
+    dfresults = pd.merge(left=dfresults, right=dfcountry, how='left', left_on='Country',
                          right_on='Country Code 3')
     #  todo find a way to rename columns to more meaningful
     # dfresults.rename(index=str, columns={"Latitude_x": "Latitude", "Longitude_x": "Longitude", "Latitude_y": "CityLat", "Longitude_y": "CityLong"})
-    print("df results datatypes with added columns: \n", dfresults.dtypes)
     dfresults['Distance'] = dfresults.apply(getdistance, axis=1)
     dfresults['City'] = dfresults['Distance'] <= dfresults['Radius']
     dfresults['Hour'] = dfresults['Date Time'].dt.hour
     dfresults['Peak End'] = dfresults['Country Code 3'].map(dfcountry.set_index('Country Code 3')['Peak-End-GMT'])
     dfresults['Peak Start'] = dfresults['Country Code 3'].map(dfcountry.set_index('Country Code 3')['Peak-Start-GMT'])
     dfresults['Peak'] = dfresults.apply(getpeak, axis=1)
+    dfresults.rename(index=str, columns={"Latitude_x": "Latitude", "Longitude_x": "Longitude", "Latitude_y": "CityLat",
+                                         "Longitude_y": "CityLong", "Country_x": "CountryCode",
+                                         "Country_y": "Country Name"}, inplace=True)
+    print("df results datatypes with added columns: \n", dfresults.dtypes)
     return dfresults
 
 
@@ -41,3 +44,6 @@ def getpeak(df):
     return df['Peak End'] >= df['Hour'] >= df["Peak Start"]
 
 
+def filterbycountry(df, countrycodeset):
+    df = df[df['CountryCode'].isin(countrycodeset)]
+    return df

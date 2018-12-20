@@ -1,12 +1,12 @@
-from dataprocessing import addextradata, addcountrycodedata
+from dataprocessing import addextradata, addcountrycodedata, filterbycountry
 from parserawdata import get3lettercountrycodes
 import pandas as pd
 
 
-CSV_FILE = '12-18.csv'  # this is the raw data
+CSV_FILE = 'newoutput.csv'  # this is the raw data
 EXCEL_FILE = 'mesample.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
-OUTPUT_FILE = 'output.csv'  # this is the raw data with fields for city and peak time info
+OUTPUT_FILE = 'outputnew.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
 PIVOT_FILE = 'pivotresults.csv'  # contains summary results
 MYDSP_LOG_FILE = "12-12.log"  # needed to get correct country codes (3 letters)
@@ -36,6 +36,10 @@ def main():
         except:
             print('Please choose a number')
         if ans == 1:
+            response = input("Are you sure? This is no longer required. Type YES to continue \n")
+            if not response.lower() == 'YES':
+                pass
+            else:
                 dfcountrycodes = get3lettercountrycodes(countrycodeset)
                 print('Raw country codes are: ', dfcountrycodes)
                 print('First few results before country codes', dfresults.head())
@@ -50,7 +54,10 @@ def main():
             if not response.lower() == 'y':
                 pass
             dfresults = addextradata(dfresults, dfcountry)
-            print(dfresults[['Date Time', 'Raw Country Code', 'Hour', 'City', 'Peak']])
+            print("Countries to filter by: ", countrycodeset)
+            filterresponse = input("Filter by these countries: (y/Y)")
+            if filterresponse.lower() == 'y':
+                dfresults = filterbycountry(dfresults, countrycodeset)
             try:
                 dfresults.to_csv(OUTPUT_FILE)
             except:
