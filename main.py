@@ -3,7 +3,7 @@ from parserawdata import get3lettercountrycodes
 import pandas as pd
 
 
-CSV_FILE = 'newoutput.csv'  # this is the raw data
+CSV_FILE = '12-31.csv'  # this is the raw data
 EXCEL_FILE = 'mesample.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'outputnew.csv'  # this is the raw data with fields for city and peak time info
@@ -21,12 +21,12 @@ print('Output file used is:', OUTPUT_FILE)
 def main():
     outputfilecreated = False
     dfcountry = pd.read_csv(CONSTANTS_FILE)
-    dfresults = pd.read_csv(CSV_FILE)
+    dfresults = pd.read_csv(CSV_FILE, encoding="ISO-8859-1")
     print('Main df datatypes: /n', dfresults.dtypes)
     ans = True
     while ans:
         print('''
-        1 Parse log file to get country codes from mydsp 
+        1 Parse log file to get country codes from mydsp (obsolete)
         2 Parse Source File 
         3 Create Pivot table Country > City > Peak > Type
         
@@ -68,7 +68,7 @@ def main():
                 print("Please process raw data file before analysing. Option 7.")
             else:
                 print(dfresults.head())
-                pivot = pd.pivot_table(dfresults, index=["Raw Country Code", "City", "Peak", "ConnectionType"],
+                pivot = pd.pivot_table(dfresults, index=["CountryCode", "City", "Peak", "ConnectionType"],
                                        values=["Download"],
                                        aggfunc=['count', 'sum', 'mean', 'median'])
                 print(pivot)

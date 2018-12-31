@@ -11,8 +11,6 @@ def addextradata(dfresults, dfcountry):
     print("dfcountry datatypes\n", dfcountry.dtypes)
     dfresults = pd.merge(left=dfresults, right=dfcountry, how='left', left_on='Country',
                          right_on='Country Code 3')
-    #  todo find a way to rename columns to more meaningful
-    # dfresults.rename(index=str, columns={"Latitude_x": "Latitude", "Longitude_x": "Longitude", "Latitude_y": "CityLat", "Longitude_y": "CityLong"})
     dfresults['Distance'] = dfresults.apply(getdistance, axis=1)
     dfresults['City'] = dfresults['Distance'] <= dfresults['Radius']
     dfresults['Hour'] = dfresults['Date Time'].dt.hour
@@ -28,8 +26,6 @@ def addextradata(dfresults, dfcountry):
 
 def addcountrycodedata(dfresults, dfcountrycodes):
     dfresults = pd.merge(left=dfresults, right=dfcountrycodes, how='left', left_on='Timestamp', right_on='Raw Timestamp')
-    # dfresults['Raw Country Code'] = dfresults['Timestamp'].map(dfcountrycodes.set_index('Raw Timestamp')['Raw countrycode'])
-    # print("new country info is:", dfresults['Timestamp', 'Raw Country Code'])
     return dfresults
 
 
@@ -40,7 +36,6 @@ def getdistance(df):
 
 
 def getpeak(df):
-    #  print('gettingpeak', df['Peak Start'], df['Hour'], df['Peak End'])
     return df['Peak End'] >= df['Hour'] >= df["Peak Start"]
 
 

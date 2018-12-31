@@ -1,3 +1,5 @@
+31 December 2018
+Edited code to deal with new conversion script from Lukáš
 20 December 2018
 Lukas changed his script and now it includes the country code that I need.
 Changed addextradata function to use this data and also moved the country filter to after the processing to limit output
