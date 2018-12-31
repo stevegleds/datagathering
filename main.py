@@ -3,8 +3,8 @@ from parserawdata import get3lettercountrycodes
 import pandas as pd
 
 
-CSV_FILE = '12-31.csv'  # this is the raw data
-EXCEL_FILE = 'mesample.xlsx'
+CSV_FILE = '12-31copy.csv'  # this is the raw data
+EXCEL_FILE = '12-31copy.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'outputnew.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
@@ -21,7 +21,11 @@ print('Output file used is:', OUTPUT_FILE)
 def main():
     outputfilecreated = False
     dfcountry = pd.read_csv(CONSTANTS_FILE)
-    dfresults = pd.read_csv(CSV_FILE, encoding="ISO-8859-1")
+    dfresults = pd.read_excel(EXCEL_FILE, encoding="ISO-8859-1")
+    print("dfresults datatypes\n", dfresults.dtypes)
+    dfresults['Timestamp'] = dfresults['Timestamp'][1:]
+    # dfresults['Timestamp'].astype(str).astype(int)
+    dfresults['Timestamp'] = pd.to_numeric(dfresults['Timestamp'], errors='coerce')
     print('Main df datatypes: /n', dfresults.dtypes)
     ans = True
     while ans:
