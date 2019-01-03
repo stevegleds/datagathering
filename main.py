@@ -4,7 +4,7 @@ import pandas as pd
 
 
 CSV_FILE = '12-31copy.csv'  # this is the raw data
-EXCEL_FILE = '201901.xlsx'
+EXCEL_FILE = '20190103.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'outputnew.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
@@ -58,14 +58,27 @@ def main():
             if not response.lower() == 'y':
                 pass
             dfresults = addextradata(dfresults, dfcountry)
-            print("Countries to filter by: ", countrycodeset)
-            filterresponse = input("Filter by these countries: (y/Y)")
-            if filterresponse.lower() == 'y':
-                dfresults = filterbycountry(dfresults, countrycodeset)
+            print("Countries to filter by: \n")
+            print("1 All Countries")
+            print("2 ME Countries: ", countrycodeset)
+            print("3 BHR")
+            print("4 Enter Three Letter Country Code")
+            filterresponse = ""
+            allowedresponses = ["1", "2", "3", "4"]
+            while filterresponse not in allowedresponses:
+                filterresponse = input("Choose one of these options \n")
+                if filterresponse.lower() == '1':
+                    print("Producing results for all countries")
+                if filterresponse.lower() == '2':
+                    dfresults = filterbycountry(dfresults, countrycodeset)
+                if filterresponse.lower() == '3':
+                    dfresults = filterbycountry(dfresults, ["BHR"])
+                if filterresponse.lower() == '4':
+                    print("This option not available yet. You should see all results.")  # todo write code to allow choice
             try:
                 dfresults.to_csv(OUTPUT_FILE)
             except:
-                print(OUTPUT_FILE, "is open")
+                print(OUTPUT_FILE, "************ The output file is open. Close it and start again.  ************")
             outputfilecreated = True
         if ans == 3:
             if not outputfilecreated:
