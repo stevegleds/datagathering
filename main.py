@@ -4,7 +4,7 @@ import pandas as pd
 
 
 CSV_FILE = '12-31copy.csv'  # this is the raw data
-EXCEL_FILE = '12-31copy.xlsx'
+EXCEL_FILE = '201901.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'outputnew.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
@@ -52,7 +52,7 @@ def main():
 
         if ans == 2:  # do it all in pandas:
             print("Use the following files?")
-            print('Data file used is: ', CSV_FILE)
+            print('Data file used is: ', EXCEL_FILE)
             print('Output file used is:', OUTPUT_FILE)
             response = input("Y to continue; any other key to abort \n")
             if not response.lower() == 'y':

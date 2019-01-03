@@ -1,3 +1,5 @@
+02 January 2019
+Minor changes to use xls file as source file
 31 December 2018
 Edited code to deal with new conversion script from Lukáš
 And fixed problem with csv stripping out data from timestamp field by using xls file
