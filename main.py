@@ -1,10 +1,10 @@
 from dataprocessing import addextradata, addcountrycodedata, filterbycountry
-from parserawdata import get3lettercountrycodes
+from parserawdata import get3lettercountrycodes, getageoffile
 import pandas as pd
 
 
 CSV_FILE = '12-31copy.csv'  # this is the raw data
-EXCEL_FILE = '20190103.xlsx'
+EXCEL_FILE = 'bahrain20190107.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'outputnew.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
@@ -13,9 +13,6 @@ MYDSP_LOG_FILE = "12-12.log"  # needed to get correct country codes (3 letters)
 COUNTRY_CODE_FILE = "countrycode.csv"
 #  countrycodeset is used to filter out unneeded countries
 countrycodeset = {"SAU", "ARE", "JOR", "ISR", "KWT", "OMN", "TUR", "QAT", "EGY", "BHR"}
-
-print('Data file used is: ', CSV_FILE)
-print('Output file used is:', OUTPUT_FILE)
 
 
 def main():
@@ -26,7 +23,9 @@ def main():
     dfresults['Timestamp'] = dfresults['Timestamp'][1:]
     # dfresults['Timestamp'].astype(str).astype(int)
     dfresults['Timestamp'] = pd.to_numeric(dfresults['Timestamp'], errors='coerce')
-    print('Main df datatypes: /n', dfresults.dtypes)
+    #  print('Main df datatypes: /n', dfresults.dtypes)
+    print('Data file used is: ', EXCEL_FILE, 'modified on :', getageoffile(EXCEL_FILE))
+    print('Output file used is:', OUTPUT_FILE)
     ans = True
     while ans:
         print('''
@@ -85,11 +84,19 @@ def main():
                 print("Please process raw data file before analysing. Option 7.")
             else:
                 print(dfresults.head())
-                pivot = pd.pivot_table(dfresults, index=["CountryCode", "City", "Peak", "ConnectionType"],
+                pivot = pd.pivot_table(dfresults, index=["CountryCode", "City", "Peak", "ConnectionType", "ISP2"],
                                        values=["Download"],
                                        aggfunc=['count', 'sum', 'mean', 'median'])
+                pivotisp = pd.pivot_table(dfresults, index=["ISP2"],
+                                       values=["Download", "Upload"],
+                                       aggfunc=['count', 'sum', 'mean', 'median'])
+                pivotlatitude = pd.pivot_table(dfresults, index=["Latitude"],
+                                          values=["Download", "Upload"],
+                                          aggfunc=['count', 'sum', 'mean', 'median'])
                 print(pivot)
                 pivot.to_csv(PIVOT_FILE)
+                pivotisp.to_csv("pivotisp.csv")
+                pivotlatitude.to_csv('pivotlatitude.csv')
 
 
 if __name__ == "__main__":

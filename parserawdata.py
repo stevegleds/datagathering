@@ -1,5 +1,13 @@
 import pandas as pd
 import os
+from datetime import datetime
+
+
+def getageoffile(filename):
+    lastmodified = datetime.fromtimestamp(os.path.getmtime(filename))
+    age = datetime.today() - lastmodified
+    return age, lastmodified
+
 
 def get3lettercountrycodes(countrycodeset):
     values = []
