@@ -7,7 +7,8 @@ CSV_FILE = '12-31copy.csv'  # this is the raw data
 EXCEL_FILE = 'bahrain20190107.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'outputnew.csv'  # this is the raw data with fields for city and peak time info
-CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radiius etc.
+CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radii etc.
+DISTRICTS_FILE = 'districts.csv'  # lookup table of latitude to Bahrain districts
 PIVOT_FILE = 'pivotresults.csv'  # contains summary results
 MYDSP_LOG_FILE = "12-12.log"  # needed to get correct country codes (3 letters)
 COUNTRY_CODE_FILE = "countrycode.csv"
@@ -17,8 +18,11 @@ countrycodeset = {"SAU", "ARE", "JOR", "ISR", "KWT", "OMN", "TUR", "QAT", "EGY",
 
 def main():
     outputfilecreated = False
+    print("Creating dataframes from local files")
     dfcountry = pd.read_csv(CONSTANTS_FILE)
     dfresults = pd.read_excel(EXCEL_FILE, encoding="ISO-8859-1")
+    dfdistricts = pd.read_csv(DISTRICTS_FILE)
+    print("Dataframes Created")
     print("dfresults datatypes\n", dfresults.dtypes)
     dfresults['Timestamp'] = dfresults['Timestamp'][1:]
     # dfresults['Timestamp'].astype(str).astype(int)
@@ -56,7 +60,8 @@ def main():
             response = input("Y to continue; any other key to abort \n")
             if not response.lower() == 'y':
                 pass
-            dfresults = addextradata(dfresults, dfcountry)
+            print('Adding new data to data file - Country, City, Peak and District information.')
+            dfresults = addextradata(dfresults, dfcountry, dfdistricts)
             print("Countries to filter by: \n")
             print("1 All Countries")
             print("2 ME Countries: ", countrycodeset)
