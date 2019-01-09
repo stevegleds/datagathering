@@ -4,7 +4,7 @@ import pandas as pd
 
 
 CSV_FILE = '12-31copy.csv'  # this is the raw data
-EXCEL_FILE = 'bahrain20190107.xlsx'
+EXCEL_FILE = 'bahrain20190109.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'outputnew.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radii etc.
@@ -65,7 +65,7 @@ def main():
             print("Countries to filter by: \n")
             print("1 All Countries")
             print("2 ME Countries: ", countrycodeset)
-            print("3 BHR")
+            print("3 Bahrain")
             print("4 Enter Three Letter Country Code")
             filterresponse = ""
             allowedresponses = ["1", "2", "3", "4"]
@@ -76,7 +76,7 @@ def main():
                 if filterresponse.lower() == '2':
                     dfresults = filterbycountry(dfresults, countrycodeset)
                 if filterresponse.lower() == '3':
-                    dfresults = filterbycountry(dfresults, ["BHR"])
+                    dfresults = filterbycountry(dfresults, ["BHR", "BH"])
                 if filterresponse.lower() == '4':
                     print("This option not available yet. You should see all results.")  # todo write code to allow choice
             try:
@@ -89,19 +89,26 @@ def main():
                 print("Please process raw data file before analysing. Option 7.")
             else:
                 print(dfresults.head())
-                pivot = pd.pivot_table(dfresults, index=["CountryCode", "City", "Peak", "ConnectionType", "ISP2"],
+                pivot = pd.pivot_table(dfresults, index=["CountryCode", "City", "Peak", "ConnectionType", "ISP"],
                                        values=["Download"],
                                        aggfunc=['count', 'sum', 'mean', 'median'])
-                pivotisp = pd.pivot_table(dfresults, index=["ISP2"],
+                pivotisp = pd.pivot_table(dfresults, index=["ISP"],
                                        values=["Download", "Upload"],
                                        aggfunc=['count', 'sum', 'mean', 'median'])
                 pivotlatitude = pd.pivot_table(dfresults, index=["Latitude"],
                                           values=["Download", "Upload"],
                                           aggfunc=['count', 'sum', 'mean', 'median'])
-                print(pivot)
+                pivotmunicipality = pd.pivot_table(dfresults, index=["Municipality"],
+                                          values=["Download", "Upload"],
+                                          aggfunc=['count', 'sum', 'mean', 'median'])
+                pivotdistrict = pd.pivot_table(dfresults, index=["District"],
+                                          values=["Download", "Upload"],
+                                          aggfunc=['count', 'sum', 'mean', 'median'])
                 pivot.to_csv(PIVOT_FILE)
                 pivotisp.to_csv("pivotisp.csv")
                 pivotlatitude.to_csv('pivotlatitude.csv')
+                pivotdistrict.to_csv('pivotdistrict.csv')
+                pivotmunicipality.to_csv('pivotmunicipality.csv')
 
 
 if __name__ == "__main__":
