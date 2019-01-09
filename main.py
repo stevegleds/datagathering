@@ -104,11 +104,19 @@ def main():
                 pivotdistrict = pd.pivot_table(dfresults, index=["District"],
                                           values=["Download", "Upload"],
                                           aggfunc=['count', 'sum', 'mean', 'median'])
+                pivotpeak = pd.pivot_table(dfresults, index=["Peak"],
+                                               values=["Download", "Upload"],
+                                               aggfunc=['count', 'sum', 'mean', 'median'])
+                pivotcity = pd.pivot_table(dfresults, index=["City"],
+                                               values=["Download", "Upload"],
+                                               aggfunc=['count', 'sum', 'mean', 'median'])
                 pivot.to_csv(PIVOT_FILE)
                 pivotisp.to_csv("pivotisp.csv")
                 pivotlatitude.to_csv('pivotlatitude.csv')
                 pivotdistrict.to_csv('pivotdistrict.csv')
                 pivotmunicipality.to_csv('pivotmunicipality.csv')
+                pivotpeak.to_csv('pivotpeak.csv')
+                pivotcity.to_csv('pivotcity.csv')
 
 
 if __name__ == "__main__":
