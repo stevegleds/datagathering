@@ -4,7 +4,7 @@ import pandas as pd
 
 
 CSV_FILE = '12-31copy.csv'  # this is the raw data
-EXCEL_FILE = 'bahrain20190109.xlsx'
+EXCEL_FILE = '20190115.xlsx'
 #  EXCEL_FILE = 'me20181127-01.xlsx'
 OUTPUT_FILE = 'outputnew.csv'  # this is the raw data with fields for city and peak time info
 CONSTANTS_FILE = 'meconstants.csv'  # contains data about city radii etc.
@@ -12,8 +12,9 @@ DISTRICTS_FILE = 'districts.csv'  # lookup table of latitude to Bahrain district
 PIVOT_FILE = 'pivotresults.csv'  # contains summary results
 MYDSP_LOG_FILE = "12-12.log"  # needed to get correct country codes (3 letters)
 COUNTRY_CODE_FILE = "countrycode.csv"
-#  countrycodeset is used to filter out unneeded countries
-countrycodeset = {"SAU", "ARE", "JOR", "ISR", "KWT", "OMN", "TUR", "QAT", "EGY", "BHR"}
+#  countrycodeset is used to filter out unneeded countries. Comment out 2 or 3 letter version as needed
+#  countrycodeset = {"SAU", "ARE", "JOR", "ISR", "KWT", "OMN", "TUR", "QAT", "EGY", "BHR"}
+countrycodeset = {"AE", "BH", "EG", "IL", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR"}
 
 
 def main():
@@ -24,7 +25,7 @@ def main():
     dfdistricts = pd.read_csv(DISTRICTS_FILE)
     print("Dataframes Created")
     print("dfresults datatypes\n", dfresults.dtypes)
-    dfresults['Timestamp'] = dfresults['Timestamp'][1:]
+    # dfresults['Timestamp'] = dfresults['Timestamp'][1:]
     # dfresults['Timestamp'].astype(str).astype(int)
     dfresults['Timestamp'] = pd.to_numeric(dfresults['Timestamp'], errors='coerce')
     #  print('Main df datatypes: /n', dfresults.dtypes)
@@ -66,7 +67,7 @@ def main():
             print("1 All Countries")
             print("2 ME Countries: ", countrycodeset)
             print("3 Bahrain")
-            print("4 Enter Three Letter Country Code")
+            print("4 Enter Two Letter Country Code")
             filterresponse = ""
             allowedresponses = ["1", "2", "3", "4"]
             while filterresponse not in allowedresponses:
@@ -104,7 +105,7 @@ def main():
                 pivotdistrict = pd.pivot_table(dfresults, index=["District"],
                                           values=["Download", "Upload"],
                                           aggfunc=['count', 'sum', 'mean', 'median'])
-                pivotpeak = pd.pivot_table(dfresults, index=["Peak"],
+                pivotpeak = pd.pivot_table(dfresults, index=["CountryCode", "Peak"],
                                                values=["Download", "Upload"],
                                                aggfunc=['count', 'sum', 'mean', 'median'])
                 pivotcity = pd.pivot_table(dfresults, index=["City"],

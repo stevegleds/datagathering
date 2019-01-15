@@ -34,6 +34,6 @@ def get3lettercountrycodes(countrycodeset):
     df = pd.DataFrame.from_records(values, columns=['Raw Timestamp', "Raw Country Code"])
     # print(df)
     df['Raw Timestamp'] = pd.to_numeric(df["Raw Timestamp"])
-    print("Data types for Raw Country codes are:", df.dtypes)
+    #  print("Data types for Raw Country codes are:", df.dtypes)
     # print('duplicates:', df.columns.idx.duplicated())
     return df

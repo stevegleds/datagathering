@@ -6,25 +6,25 @@ import pandas as pd
 def addextradata(dfresults, dfcountry, dfdistricts):
     dfresults['Date Time'] = pd.to_datetime(dfresults['Timestamp'], unit='ms')
     print("dfresults head:\n", dfresults.head())
-    print("dfcounty head:\n", dfcountry.head())
-    print("dfresults datatypes\n", dfresults.dtypes)
-    print("dfcountry datatypes\n", dfcountry.dtypes)
+    print("dfcountry head:\n", dfcountry.head())
     print("Adding Country information: City information, Peak / Off peak times")
     dfresults = pd.merge(left=dfresults, right=dfcountry, how='left', left_on='Country',
-                         right_on='Country Code 3')
-    print("Calculating if each result is peak / offpeak and if it is in the city or not")
+                         right_on='Country Code 2')
+    print("Calculating if each result is in the city or not")
     dfresults['Distance'] = dfresults.apply(getdistance, axis=1)
+    print("Calculating if each result is peak or offpeak")
     dfresults['City'] = dfresults['Distance'] <= dfresults['Radius']
     dfresults['Hour'] = dfresults['Date Time'].dt.hour
-    dfresults['Peak End'] = dfresults['Country Code 3'].map(dfcountry.set_index('Country Code 3')['Peak-End-GMT'])
-    dfresults['Peak Start'] = dfresults['Country Code 3'].map(dfcountry.set_index('Country Code 3')['Peak-Start-GMT'])
+    #  print(dfresults[['Date Time', 'Hour']])
+    dfresults['Peak End'] = dfresults['Country Code 2'].map(dfcountry.set_index('Country Code 2')['Peak-End-GMT'])
+    dfresults['Peak Start'] = dfresults['Country Code 2'].map(dfcountry.set_index('Country Code 2')['Peak-Start-GMT'])
     dfresults['Peak'] = dfresults.apply(getpeak, axis=1)
     dfresults.rename(index=str, columns={"Latitude_x": "Latitude", "Longitude_x": "Longitude", "Latitude_y": "CityLat",
                                          "Longitude_y": "CityLong", "Country_x": "CountryCode",
                                          "Country_y": "Country Name"}, inplace=True)
     dfresults = pd.merge(left=dfresults, right=dfdistricts, how='left', on='Latitude')
     dfresults.rename(index=str, columns={"Longitude_x": "Longitude", "Longitude_y": "District Longitude"}, inplace=True)
-    print("df results datatypes with added district columns: \n", dfresults.dtypes)
+    #  print("df results datatypes with added district columns: \n", dfresults.dtypes)
     dfresults = dfresults.apply(checkdistrict, axis=1)
     return dfresults
 
@@ -41,7 +41,7 @@ def getdistance(df):
 
 
 def getpeak(df):
-    return df['Peak End'] >= df['Hour'] >= df["Peak Start"]
+    return df['Peak-End-GMT'] >= df['Hour'] >= df["Peak-Start-GMT"]
 
 
 def filterbycountry(df, countrycodeset):
