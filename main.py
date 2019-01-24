@@ -13,6 +13,7 @@ CSV_FILE = data_input+'\\12-31copy.csv'  # this is the raw data
 EXCEL_FILE = data_input+'\\20190115.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
+MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
 #  MYDSP_LOG_FILE = data_sources+'\\12-12.log"  # needed to get correct country codes (3 letters)
 COUNTRY_CODE_FILE = data_sources+'\\countrycode.csv'
 #  countrycodeset is used to filter out unneeded countries. Comment out 2 or 3 letter version as needed
@@ -36,6 +37,10 @@ def main():
     print("Creating dataframes from local files")
     dfcountry = pd.read_csv(CONSTANTS_FILE)
     dfresults = pd.read_excel(EXCEL_FILE, encoding="ISO-8859-1")
+    usemydspdata = input("Enter Y/y to merge with myDSP data from November 2018 to January 2019 \n")
+    if usemydspdata.lower() == 'y':
+        dfmydsp = pd.read_excel(MYDSP_FILE)
+        dfresults = dfresults.append(dfmydsp)
     #  dfdistricts = pd.read_csv(DISTRICTS_FILE)
     print("Dataframes Created")
     print("dfresults datatypes\n", dfresults.dtypes)

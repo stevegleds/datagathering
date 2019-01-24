@@ -1,4 +1,6 @@
 24 January 2019
+Added code to allow for merging mydsp file
+24 January 2019
 Edited python script to better handle data files (created folders )
 Edited python script to allow for suffixes to output files
 15 January 2019
