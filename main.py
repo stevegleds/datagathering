@@ -10,7 +10,7 @@ data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
 #  Data Sources
 CSV_FILE = data_input+'\\12-31copy.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\20190115.xlsx'
+EXCEL_FILE = data_input+'\\mediasmart20190124.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
@@ -39,6 +39,7 @@ def main():
     dfresults = pd.read_excel(EXCEL_FILE, encoding="ISO-8859-1")
     usemydspdata = input("Enter Y/y to merge with myDSP data from November 2018 to January 2019 \n")
     if usemydspdata.lower() == 'y':
+        print("Merging mydsp data")
         dfmydsp = pd.read_excel(MYDSP_FILE)
         dfresults = dfresults.append(dfmydsp)
     #  dfdistricts = pd.read_csv(DISTRICTS_FILE)
