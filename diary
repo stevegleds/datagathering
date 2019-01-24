@@ -1,3 +1,6 @@
+24 January 2019
+Edited python script to better handle data files (created folders )
+Edited python script to allow for suffixes to output files
 15 January 2019
 Changed from 3 letter codes to 2 letter country codes.
 Some tidying up
