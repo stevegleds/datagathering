@@ -1,3 +1,10 @@
+25 January 2019
+Added code to allow processing of existing output.csv file. This allows for making chnages to pivot table code without
+the need for re-processing of the results
+25 January 2019
+Cody tidying to remove unnecessary district code
+Added more comments to show progress and choices made
+Changed pivot code to include countrycode info
 24 January 2019
 Added code to allow for merging mydsp file
 24 January 2019
