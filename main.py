@@ -2,7 +2,6 @@ from dataprocessing import addextradata, filterbycountry
 from parserawdata import getageoffile
 import pandas as pd
 import os
-import openpyxl
 
 #  Data Folders and Files
 data_dir = os.getcwd()+'\\data'
@@ -10,8 +9,8 @@ data_sources = data_dir+'\\datasources'
 data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
 #  Data Sources
-CSV_FILE = data_input+'\\12-31copy.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\mediasmart20190125.xlsx'
+CSV_FILE = data_input+'\\2019january.csv'  # this is the raw data
+EXCEL_FILE = data_input+'\\2019january.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
@@ -34,8 +33,8 @@ def main():
     ans = True
     while ans:
         menu = (
-            f"1 Use Existing Source File \n"
-            f"2 Create Country Info file from {CONSTANTS_FILE} and \nParse Source File {EXCEL_FILE}\n" 
+            f"1 Use An Existing Data File That I Will Specify \n"
+            f"2 Create New Data file including Country Info file from {CONSTANTS_FILE} \n and Parse Raw File {EXCEL_FILE}\n" 
             f"3 Create Pivot table Country > City > Peak > Type\n"
         )
         print(menu)
@@ -57,7 +56,7 @@ def main():
                     pass
         if ans == 2:
             output_file = data_output + '\\output.csv'  # this is the raw data with fields for city and peak time info
-            print(output_file)
+            print("Creating new data file: ", output_file, "from the raw input file ", EXCEL_FILE)
             print("Creating dataframes from local files")
             print("        Creating country information dataframe")
             dfcountry = pd.read_csv(CONSTANTS_FILE)
@@ -90,23 +89,23 @@ def main():
             print("1 All Countries")
             print("2 ME Countries: ", countrycodeset)
             print("3 Bahrain")
-            print("4 Enter Two Letter Country Code")
+            print("4 Enter Two Letter Country Code {not available yet")
             filterresponse = ""
             allowedresponses = ["1", "2", "3", "4"]
             while filterresponse not in allowedresponses:
                 filterresponse = input("Choose one of these options \n")
                 if filterresponse.lower() == '1':
                     print("Producing results for all countries")
-                    choicesmade.append("Source File created for all countries")
+                    choicesmade.append("Data File created for all countries")
                 if filterresponse.lower() == '2':
                     dfresults = filterbycountry(dfresults, countrycodeset)
-                    choicesmade.append("Source File created for Middle East Countries")
+                    choicesmade.append("Data File created for Middle East Countries")
                 if filterresponse.lower() == '3':
                     dfresults = filterbycountry(dfresults, ["BHR", "BH"])
-                    choicesmade.append("Source File created for Bahrain only")
+                    choicesmade.append("Data File created for Bahrain only")
                 if filterresponse.lower() == '4':
                     print("This option not available yet. You should see all results.")  # todo write code to allow choice
-                    choicesmade.append("Source File created for all countries")
+                    choicesmade.append("Data File created for all countries")
             file_suffix = input("Enter text to add to end of output file name")
             output_file = output_file[:-4] + "_" + file_suffix + ".csv"
             print("Output file is going to be: ", output_file)
