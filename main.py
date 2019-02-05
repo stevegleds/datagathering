@@ -10,7 +10,7 @@ data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
 #  Data Sources
 CSV_FILE = data_input+'\\2019january.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\2019january.xlsx'
+EXCEL_FILE = data_input+'\\2019januaryfiltered.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
@@ -124,7 +124,7 @@ def main():
                 print(dfresults.head())
                 pivot = pd.pivot_table(dfresults, index=["Country Name", "City", "Peak", "ConnectionType", "ISP"],
                                        values=["Download", "Upload"],
-                                       aggfunc=['count', 'sum', 'mean', 'median'])
+                                       aggfunc=['count', 'sum', 'mean', 'median'],)
                 pivotisp = pd.pivot_table(dfresults, index=["Country Name", "ISP"],
                                           values=["Download", "Upload"],
                                           aggfunc=['count', 'sum', 'mean', 'median'])
@@ -139,11 +139,11 @@ def main():
                                                aggfunc=['count', 'sum', 'mean', 'median'])
                 file_suffix = input("Enter text to add to end of pivot file names")
                 print("Pivot results csv file is going to be: ", PIVOT_FILE[:-4] + "_" + file_suffix + ".csv")
-                pivot.to_csv(PIVOT_FILE[:-4] + "_" + file_suffix + ".csv", index=False)
-                pivotisp.to_csv(PIVOT_ISP_FILE[:-4] + "_" + file_suffix + ".csv", index=False)
-                pivotgeo.to_csv(PIVOT_GEO_FILE[:-4] + "_" + file_suffix + ".csv", index=False)
-                pivotpeak.to_csv(PIVOT_PEAK_FILE[:-4] + "_" + file_suffix + ".csv", index=False)
-                pivotcity.to_csv(PIVOT_CITY_FILE[:-4] + "_" + file_suffix + ".csv", index=False)
+                pivot.to_csv(PIVOT_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
+                pivotisp.to_csv(PIVOT_ISP_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
+                pivotgeo.to_csv(PIVOT_GEO_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
+                pivotpeak.to_csv(PIVOT_PEAK_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
+                pivotcity.to_csv(PIVOT_CITY_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
                 print("Your Pivot csv files are created and stored in the Data/Output folder.")
                 print("Pivot results excel file is going to be: ", PIVOT_FILE[:-4] + "_" + file_suffix + ".csv")
                 choicesmade.append("Pivot csv files created with a suffix of " + file_suffix)

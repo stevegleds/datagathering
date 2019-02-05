@@ -1,3 +1,6 @@
+05 February 2019
+Pivot files were not including index columns. Changed index=False to index=True in to_csv function
+Don't know why that was in though so may break something else.
 04 February 2019
 Minor changes to displayed text messages
 29 January 2019
