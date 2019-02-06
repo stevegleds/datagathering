@@ -10,7 +10,7 @@ data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
 #  Data Sources
 CSV_FILE = data_input+'\\2019january.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\2019januaryfiltered.xlsx'
+EXCEL_FILE = data_input+'\\full-20181101-20190131-filtered.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
