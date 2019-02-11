@@ -18,14 +18,15 @@ data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
 #  Data Sources
 CSV_FILE = data_input+'\\2019january.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\2018november_2019january_filtered.xlsx'
+EXCEL_FILE = data_input+'\\2018november_2019january_filtered_2lettercodes.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
 COUNTRY_CODE_FILE = data_sources+'\\countrycode.csv'
 #  countrycodeset is used to filter out unneeded countries. Comment out 2 or 3 letter version as needed
-#  countrycodeset = {"SAU", "ARE", "JOR", "ISR", "KWT", "OMN", "TUR", "QAT", "EGY", "BHR"}
-countrycodeset = {"AE", "BH", "EG", "IL", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR"}
+#  There are 2 and 3 letter codes needed for processing mydsp data. Mediasmart only used 2 letter codes
+mecountrycodeset = ["AE", "BH", "EG", "IL", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR",
+                    "ARE", "BHR", "EGY", "ISR", "IRN", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "TUR"]
 choicesmade = []
 #  Data Output
 PIVOT_FILE = data_output+'\\pivot_results.csv'  # contains summary results
@@ -90,12 +91,12 @@ def main():
             print('Data file used is: ', EXCEL_FILE)
             response = input("Y to continue; any other key to abort \n")
             if not response.lower() == 'y':
-                pass
+                pass  #TODO this is pointless because the next section is still completed
             print('Adding new data to data file - Country, City, Peak and District information.')
             dfresults = addextradata(dfresults, dfcountry)
             print("Countries to filter by: \n")
             print("1 All Countries")
-            print("2 ME Countries: ", countrycodeset)
+            print("2 ME Countries: ", mecountrycodeset)
             print("3 Bahrain")
             print("4 Enter Two Letter Country Code {not available yet")
             filterresponse = ""
@@ -106,7 +107,7 @@ def main():
                     print("Producing results for all countries")
                     choicesmade.append("Data File created for all countries")
                 if filterresponse.lower() == '2':
-                    dfresults = filterbycountry(dfresults, countrycodeset)
+                    dfresults = filterbycountry(dfresults, mecountrycodeset)
                     choicesmade.append("Data File created for Middle East Countries")
                 if filterresponse.lower() == '3':
                     dfresults = filterbycountry(dfresults, ["BHR", "BH"])
@@ -145,7 +146,7 @@ def main():
                 pivotcity = pd.pivot_table(dfresults, index=["Country Name", "City"],
                                                values=["Download", "Upload"],
                                                aggfunc=['count', 'sum', 'mean', 'median'])
-                file_suffix = input("Enter text to add to end of pivot file names")
+                file_suffix = input("Enter text to add to end of pivot file names\n")
                 print("Pivot results csv file is going to be: ", PIVOT_FILE[:-4] + "_" + file_suffix + ".csv")
                 pivot.to_csv(PIVOT_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
                 pivotisp.to_csv(PIVOT_ISP_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
