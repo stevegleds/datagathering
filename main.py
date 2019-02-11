@@ -3,6 +3,14 @@ from parserawdata import getageoffile
 import pandas as pd
 import os
 
+"""
+This script takes raw speed test data from .xlsx files and adds information about the country (peak times, 
+geographical information about its capital). It uses this to create a csv file that contains the added information.
+Optionally it creates pivot tables that include median values (something that isn't one of the options in Excel pivots).
+An option is available to merge the source data with historic myDSP data if needed. 
+Finally there is an option to filter by country or countries.
+"""
+
 #  Data Folders and Files
 data_dir = os.getcwd()+'\\data'
 data_sources = data_dir+'\\datasources'
@@ -10,7 +18,7 @@ data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
 #  Data Sources
 CSV_FILE = data_input+'\\2019january.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\full-20181101-20190131-filtered.xlsx'
+EXCEL_FILE = data_input+'\\2018november_2019january_filtered.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
