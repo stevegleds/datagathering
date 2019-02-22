@@ -18,7 +18,7 @@ data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
 #  Data Sources
 CSV_FILE = data_input+'\\2019january.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\2018november_2019january_filtered_2lettercodes.xlsx'
+EXCEL_FILE = data_input+'\\2019februarypart_Filtered.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
@@ -146,7 +146,12 @@ def main():
                 pivotcity = pd.pivot_table(dfresults, index=["Country Name", "City"],
                                                values=["Download", "Upload"],
                                                aggfunc=['count', 'sum', 'mean', 'median'])
-                file_suffix = input("Enter text to add to end of pivot file names\n")
+                print(file_suffix)
+                samesuffix = input("Use previous suffix? Y/y")
+                if samesuffix.lower() == "y":
+                    pass
+                else:
+                    file_suffix = input("Enter text to add to end of pivot file names\n")
                 print("Pivot results csv file is going to be: ", PIVOT_FILE[:-4] + "_" + file_suffix + ".csv")
                 pivot.to_csv(PIVOT_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
                 pivotisp.to_csv(PIVOT_ISP_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
