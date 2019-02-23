@@ -1,0 +1,167 @@
+﻿POP,City,Country,Continent
+BGW,Baghdad,Iraq,Middle East
+BEY,Beirut,Lebanon,Middle East
+DOH,Doha,Qatar,Middle East
+DXB,Dubai,United Arab Emirates,Middle East
+KWI,Kuwait City,Kuwait,Middle East
+BAH,Manama,Bahrain,Middle East
+MCT,Muscat,Oman,Middle East
+RUH,Riyadh,Saudi Arabia,Middle East
+TLV,Tel Aviv,Israel,Middle East
+AMS,Amsterdam,Netherlands,Europe
+ATH,Athens,Greece,Europe
+BCN,Barcelona,Spain,Europe
+BEG,Belgrade,Serbia,Europe
+TXL,Berlin,Germany,Europe
+BRU,Brussels,Belgium,Europe
+OTP,Bucharest,Romania,Europe
+BUD,Budapest,Hungary,Europe
+KIV,Chișinău,Moldova,Europe
+CPH,Copenhagen,Denmark,Europe
+DUB,Dublin,Ireland,Europe
+DUS,Düsseldorf,Germany,Europe
+EDI,Edinburgh,United Kingdom,Europe
+FRA,Frankfurt,Germany,Europe
+HAM,Hamburg,Germany,Europe
+HEL,Helsinki,Finland,Europe
+IST,Istanbul,Turkey,Europe
+KBP,Kiev,Ukraine,Europe
+LIS,Lisbon,Portugal,Europe
+LHR,London,United Kingdom,Europe
+LUX,Luxembourg City,Luxembourg,Europe
+MAD,Madrid,Spain,Europe
+MAN,Manchester,United Kingdom,Europe
+MRS,Marseille,France,Europe
+MXP,Milan,Italy,Europe
+DME,Moscow,Russia,Europe
+MUC,Munich,Germany,Europe
+OSL,Oslo,Norway,Europe
+CDG,Paris,France,Europe
+PRG,Prague,Czech Republic,Europe
+KEF,Reykjavík,Iceland,Europe
+RIX,Riga,Latvia,Europe
+FCO,Rome,Italy,Europe
+LED,Saint Petersburg,Russia,Europe
+SOF,Sofia,Bulgaria,Europe
+ARN,Stockholm,Sweden,Europe
+TLL,Tallinn,Estonia,Europe
+VIE,Vienna,Austria,Europe
+VNO,Vilnius,Lithuania,Europe
+WAW,Warsaw,Poland,Europe
+ZAG,Zagreb,Croatia,Europe
+ZRH,Zürich,Switzerland,Europe
+CAI,Cairo,Egypt,Africa
+CMN,Casablanca,Morocco,Africa
+CPT,Cape Town,South Africa,Africa
+JIB,Djibouti City,Djibouti,Africa
+DUR,Durban,South Africa,Africa
+JNB,Johannesburg,South Africa,Africa
+LOS,Lagos,Nigeria,Africa
+LAD,Luanda,Angola,Africa
+MBA,Mombasa,Kenya,Africa
+MRU,Port Louis,Mauritius,Africa
+RUN,Réunion,France,Africa
+BKK,Bangkok,Thailand,Asia
+CEB,Cebu,Philippines,Asia
+CTU,Chengdu,China,Asia
+MAA,Chennai,India,Asia
+CMB,Colombo,Sri Lanka,Asia
+SZX,Dongguan,China,Asia
+FUO,Foshan,China,Asia
+FOC,Fuzhou,China,Asia
+CAN,Guangzhou,China,Asia
+HGH,Hangzhou,China,Asia
+HAN,Hanoi,Vietnam,Asia
+HNY,Hengyang,China,Asia
+SGN,Ho Chi Minh City,Vietnam,Asia
+HKG,Hong Kong,Hong Kong,Asia
+HYD,Hyderabad,India,Asia
+ISB,Islamabad,#VALUE!,Asia
+TNA,Jinan,China,Asia
+KHI,Karachi,#VALUE!,Asia
+KTM,Kathmandu,Nepal,Asia
+KUL,Kuala Lumpur,Malaysia,Asia
+NAY,Langfang,China,Asia
+LYA,Luoyang,China,Asia
+MFM,Macau,Macau,Asia
+MNL,Manila,Philippines,Asia
+BOM,Mumbai,India,Asia
+NNG,Nanning,China,Asia
+DEL,New Delhi,India,Asia
+KIX,Osaka,Japan,Asia
+PNH,Phnom Penh,Cambodia,Asia
+TAO,Qingdao,China,Asia
+ICN,Seoul,South Korea,Asia
+SHA,Shanghai,China,Asia
+SHE,Shenyang,China,Asia
+SJW,Shijiazhuang,China,Asia
+SIN,Singapore,Singapore,Asia
+SZV,Suzhou,China,Asia
+TPE,Taipei,Taiwan,Asia
+TSN,Tianjin,China,Asia
+NRT,Tokyo,Japan,Asia
+ULN,Ulaanbaatar,Mongolia,Asia
+WUH,Wuhan,China,Asia
+WUX,Wuxi,China,Asia
+XIY,Xi'an,China,Asia
+EVN,Yerevan,Armenia,Asia
+CGO,Zhengzhou,China,Asia
+CSX,Zuzhou,China,Asia
+BOG,Bogotá,Colombia,Latin America / Caribbean
+EZE,Buenos Aires,Argentina,Latin America / Caribbean
+LIM,Lima,Peru,Latin America / Caribbean
+MDE,Medellín,Colombia,Latin America / Caribbean
+MEX,Mexico City,Mexico,Latin America / Caribbean
+PTY,Panama City,Panama,Latin America / Caribbean
+UIO,Quito,Ecuador,Latin America / Caribbean
+GIG,Rio de Janeiro,Brazil,Latin America / Caribbean
+GRU,São Paulo,Brazil,Latin America / Caribbean
+SCL,Valparaíso,Chile,Latin America / Caribbean
+CUR,Willemstad,Curaçao,Latin America / Caribbean
+IAD,Ashburn,United States,North America
+ATL,Atlanta,United States,North America
+BOS,Boston,United States,North America
+YYC,Calgary,Canada,North America
+CLT,Charlotte,United States,North America
+ORD,Chicago,United States,North America
+CMH,Columbus,United States,North America
+DFW,Dallas,United States,North America
+DEN,Denver,United States,North America
+DTW,Detroit,United States,North America
+IAH,Houston,United States,North America
+IND,Indianapolis,United States,North America
+JAX,Jacksonville,United States,North America
+MCI,Kansas City,United States,North America
+LAS,Las Vegas,United States,North America
+LAX,Los Angeles,United States,North America
+MFE,McAllen,United States,North America
+MEM,Memphis,United States,North America
+MIA,Miami,United States,North America
+MSP,Minneapolis,United States,North America
+MGM,Montgomery,United States,North America
+YUL,Montréal,Canada,North America
+BNA,Nashville,United States,North America
+EWR,Newark,United States,North America
+ORF,Norfolk,United States,North America
+OMA,Omaha,United States,North America
+PHX,Phoenix,United States,North America
+PIT,Pittsburgh,United States,North America
+PDX,Portland,United States,North America
+RIC,Richmond,United States,North America
+SMF,Sacramento,United States,North America
+SLC,Salt Lake City,United States,North America
+SAN,San Diego,United States,North America
+SJC,San Jose,United States,North America
+YXE,Saskatoon,Canada,North America
+SEA,Seattle,United States,North America
+STL,St. Louis,United States,North America
+TPA,Tampa,United States,North America
+YYZ,Toronto,Canada,North America
+YVR,Vancouver,Canada,North America
+TLH,Tallahassee,United States,North America
+YWG,Winnipeg,Canada,North America
+AKL,Auckland,New Zealand,Oceania
+BNE,Brisbane,Australia,Oceania
+MEL,Melbourne,Australia,Oceania
+PER,Perth,Australia,Oceania
+SYD,Sydney,Australia,Oceania
