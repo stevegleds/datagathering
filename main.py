@@ -18,8 +18,8 @@ data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
 #  Data Sources
 CSV_FILE = data_input+'\\2019january.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\2019februarypart_Filtered.xlsx'
-CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
+EXCEL_FILE = data_input+'\\londontest.xlsx'
+CONSTANTS_FILE = data_sources+'\\londonconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
 COUNTRY_CODE_FILE = data_sources+'\\countrycode.csv'
@@ -73,16 +73,6 @@ def main():
             print("        Creating results dataframe")
             dfresults = pd.read_excel(EXCEL_FILE, encoding="ISO-8859-1")
             print("        ... Done")
-            usemydspdata = input("Enter Y/y to merge with myDSP data from November 2018 to January 2019 \n")
-            if usemydspdata.lower() == 'y':
-                print("Merging mydsp data")
-                dfmydsp = pd.read_excel(MYDSP_FILE)
-                print("        ... file has been read")
-                dfresults = dfresults.append(dfmydsp)
-                print("        ... Done")
-                choicesmade.append("myDSP data merged")
-            else:
-                choicesmade.append("myDSP data not merged")
             print("Dataframes Created")
             dfresults['Timestamp'] = pd.to_numeric(dfresults['Timestamp'], errors='coerce')
             print('Data file used is: ', EXCEL_FILE, 'modified on :', getageoffile(EXCEL_FILE))
