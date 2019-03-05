@@ -1,7 +1,7 @@
 05 March 2019
 Added code to use various data source files for Daily Mail project
 Added code to add Street code column to output file to include code to allow creation of single file
-Next step: merge output files.
+
 02 March 2019
 Added london constants data as data resource
 23 February 2019
