@@ -16,7 +16,9 @@ data_dir = os.getcwd()+'\\data'
 data_sources = data_dir+'\\datasources'
 data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
+
 #  Data Sources
+
 CSV_FILE = data_input+'\\dailymail.csv'  # this is the raw data
 EXCEL_FILE = data_input+'\\dailymail.xlsx'
 CONSTANTS_FILE = data_sources+'\\constants.csv'  # contains data about city radii etc.
@@ -68,7 +70,9 @@ def main():
             dailymail = input('If this is for DailyMail enter street code or nothing \n '
                               'choices are KPG, IPL, CGD, MRD, TBS, CRT, CMP, FWY, GCC, AST\n')
             if dailymail:
-                # output_file = data_output + '\\' + dailymail + '_output.csv'
+                print(output_file)
+                output_file = data_output + '\\dailymail\\' + dailymail + '_output.csv'
+                print(output_file)
                 CONSTANTS_FILE = data_sources+'\\' + dailymail + 'constants.csv'
             print("Creating new data file: ", output_file, "from the raw input file ", EXCEL_FILE)
             print("Creating dataframes from local files")
@@ -112,6 +116,7 @@ def main():
                     choicesmade.append("Data File created for all countries")
             if dailymail:
                 file_suffix = dailymail
+                dfresults['Street Code'] = [dailymail if x is True else 'Ignore' for x in dfresults['City']]
             else:
                 file_suffix = input("Enter text to add to end of output file name")
             output_file = output_file[:-4] + "_" + file_suffix + ".csv"
