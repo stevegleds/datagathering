@@ -17,9 +17,9 @@ data_sources = data_dir+'\\datasources'
 data_input = data_dir+'\\input'
 data_output = data_dir+'\\output'
 #  Data Sources
-CSV_FILE = data_input+'\\2019january.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\londontest.xlsx'
-CONSTANTS_FILE = data_sources+'\\londonconstants.csv'  # contains data about city radii etc.
+CSV_FILE = data_input+'\\dailymail.csv'  # this is the raw data
+EXCEL_FILE = data_input+'\\dailymail.xlsx'
+CONSTANTS_FILE = data_sources+'\\constants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
 COUNTRY_CODE_FILE = data_sources+'\\countrycode.csv'
@@ -43,7 +43,7 @@ def main():
     while ans:
         menu = (
             f"1 Use An Existing Data File That I Will Specify \n"
-            f"2 Create New Data file including Country Info file from {CONSTANTS_FILE} \n and Parse Raw File {EXCEL_FILE}\n" 
+            f"2 Create New Data file including Country Info file from constants file \n and Parse Raw File {EXCEL_FILE}\n" 
             f"3 Create Pivot table Country > City > Peak > Type\n"
         )
         print(menu)
@@ -65,6 +65,11 @@ def main():
                     pass
         if ans == 2:
             output_file = data_output + '\\output.csv'  # this is the raw data with fields for city and peak time info
+            dailymail = input('If this is for DailyMail enter street code or nothing \n '
+                              'choices are KPG, IPL, CGD, MRD, TBS, CRT, CMP, FWY, GCC, AST\n')
+            if dailymail:
+                # output_file = data_output + '\\' + dailymail + '_output.csv'
+                CONSTANTS_FILE = data_sources+'\\' + dailymail + 'constants.csv'
             print("Creating new data file: ", output_file, "from the raw input file ", EXCEL_FILE)
             print("Creating dataframes from local files")
             print("        Creating country information dataframe")
@@ -105,7 +110,10 @@ def main():
                 if filterresponse.lower() == '4':
                     print("This option not available yet. You should see all results.")  # todo write code to allow choice
                     choicesmade.append("Data File created for all countries")
-            file_suffix = input("Enter text to add to end of output file name")
+            if dailymail:
+                file_suffix = dailymail
+            else:
+                file_suffix = input("Enter text to add to end of output file name")
             output_file = output_file[:-4] + "_" + file_suffix + ".csv"
             print("Output file is going to be: ", output_file)
             try:
