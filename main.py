@@ -25,6 +25,7 @@ CONSTANTS_FILE = data_sources+'\\constants.csv'  # contains data about city radi
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
 COUNTRY_CODE_FILE = data_sources+'\\countrycode.csv'
+POPSERVER_FILE = data_sources+'\\popservers.csv'
 #  countrycodeset is used to filter out unneeded countries. Comment out 2 or 3 letter version as needed
 #  There are 2 and 3 letter codes needed for processing mydsp data. Mediasmart only used 2 letter codes
 mecountrycodeset = ["AE", "BH", "EG", "IL", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR",
@@ -67,23 +68,33 @@ def main():
                     pass
         if ans == 2:
             output_file = data_output + '\\output.csv'  # this is the raw data with fields for city and peak time info
-            dailymail = input('If this is for DailyMail enter street code or nothing \n '
+            dailymail = input('If this is for DailyMail enter street code or else enter nothing \n '
                               'choices are KPG, IPL, CGD, MRD, TBS, CRT, CMP, FWY, GCC, AST\n')
             if dailymail:
-                print(output_file)
+                print("Producing results for street code", dailymail, ". Results going to : ", output_file)
                 output_file = data_output + '\\dailymail\\' + dailymail + '_output.csv'
                 print(output_file)
                 CONSTANTS_FILE = data_sources+'\\' + dailymail + 'constants.csv'
+            else:
+                CONSTANTS_FILE = data_sources + '\\meconstants.csv'
             print("Creating new data file: ", output_file, "from the raw input file ", EXCEL_FILE)
             print("Creating dataframes from local files")
             print("        Creating country information dataframe")
             dfcountry = pd.read_csv(CONSTANTS_FILE)
             print("        ... Done")
+            print("Creating POP Server dataframe")
+            dfpopserver = pd.read_csv(POPSERVER_FILE)
+            print("        ... Done")
             print("        Creating results dataframe")
             dfresults = pd.read_excel(EXCEL_FILE, encoding="ISO-8859-1")
             print("        ... Done")
             print("Dataframes Created")
+            print("Converting timestamp field to numeric to ensure good date time data")
             dfresults['Timestamp'] = pd.to_numeric(dfresults['Timestamp'], errors='coerce')
+            print("        ... Done")
+            print("Creating POP3 column that contains only one POP server id to allow lookup to work ")
+            dfresults['POP Unique'] = [x[:3] for x in dfresults['POP']]
+            print("        ... Done")
             print('Data file used is: ', EXCEL_FILE, 'modified on :', getageoffile(EXCEL_FILE))
 
             print("Use the following files?")
@@ -91,8 +102,8 @@ def main():
             response = input("Y to continue; any other key to abort \n")
             if not response.lower() == 'y':
                 pass  #TODO this is pointless because the next section is still completed
-            print('Adding new data to data file - Country, City, Peak and District information.')
-            dfresults = addextradata(dfresults, dfcountry)
+            print('Adding new data to data file - Country, City, Peak, POP and District information.')
+            dfresults = addextradata(dfresults, dfcountry, dfpopserver)
             print("Countries to filter by: \n")
             print("1 All Countries")
             print("2 ME Countries: ", mecountrycodeset)
@@ -126,7 +137,7 @@ def main():
                 dfresults.to_csv(output_file)
                 print("Your results have been saved in:", output_file)
             except:
-                print(output_file, "************ The output file is open. Close it and start again.  ************")
+                print("************ The output file is open. Close it and start again.  ************")
             outputfilecreated = True
         if ans == 3:
             if not outputfilecreated:

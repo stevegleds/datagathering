@@ -3,13 +3,17 @@ from math import sqrt
 import pandas as pd
 
 
-def addextradata(dfresults, dfcountry):
+def addextradata(dfresults, dfcountry, dfpopserver):
     dfresults['Date Time'] = pd.to_datetime(dfresults['Timestamp'], unit='ms')
     print("dfresults head:\n", dfresults.head())
     print("dfcountry head:\n", dfcountry.head())
     print("Adding Country information: City information, Peak / Off peak times")
     dfresults = pd.merge(left=dfresults, right=dfcountry, how='left', left_on='Country',
                          right_on='Country Code 2')
+    print("        ... Done")
+    print("Adding POP Server information: City, Country and Continent of POP Servers")
+    dfresults = pd.merge(left=dfresults, right=dfpopserver, how='left', left_on='POP Unique',
+                         right_on='POP')
     print("        ... Done")
     print("Calculating distance of each result from the capital")
     dfresults['Distance'] = dfresults.apply(getdistance, axis=1)
@@ -30,7 +34,7 @@ def addextradata(dfresults, dfcountry):
     print("Renaming column names")
     dfresults.rename(index=str, columns={"Latitude_x": "Latitude", "Longitude_x": "Longitude", "Latitude_y": "CityLat",
                                          "Longitude_y": "CityLong", "Country_x": "CountryCode",
-                                         "Country_y": "Country Name"}, inplace=True)
+                                         "Country_y": "Country Name", "POP_y": "POP Lookup"}, inplace=True)
     return dfresults
 
 
