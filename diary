@@ -1,3 +1,6 @@
+04 April 2019
+Added convertjson.py to extract data from json file from Cloudperf
+Works well
 06 March 2019
 Added code to deal with POP servers:
 1: Added column to dfresults (POP3) containing only first 3 characters - so AMS ¦ LHR --> AMS

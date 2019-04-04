@@ -37,6 +37,7 @@ PIVOT_ISP_FILE = data_output+'\\pivot_isp.csv'  # contains isp results
 PIVOT_GEO_FILE = data_output+'\\pivot_geo.csv'  # contains geo results
 PIVOT_PEAK_FILE = data_output+'\\pivot_peak.csv'  # contains peak time results
 PIVOT_CITY_FILE = data_output+'\\pivot_city.csv'  # contains city results
+PIVOT_POP_FILE = data_output+'\\pivot_pop.csv' # contains pop results
 print('file names and constants have been defined')
 
 
@@ -69,7 +70,7 @@ def main():
         if ans == 2:
             output_file = data_output + '\\output.csv'  # this is the raw data with fields for city and peak time info
             dailymail = input('If this is for DailyMail enter street code or else enter nothing \n '
-                              'choices are KPG, IPL, CGD, MRD, TBS, CRT, CMP, FWY, GCC, AST\n')
+                              'choices are KPG, IPL, CGD, MRD, TBS, CRT, CMP, FWY, GCC, AST, KPL\n')
             if dailymail:
                 print("Producing results for street code", dailymail, ". Results going to : ", output_file)
                 output_file = data_output + '\\dailymail\\' + dailymail + '_output.csv'
@@ -77,7 +78,7 @@ def main():
                 CONSTANTS_FILE = data_sources+'\\' + dailymail + 'constants.csv'
             else:
                 CONSTANTS_FILE = data_sources + '\\meconstants.csv'
-            print("Creating new data file: ", output_file, "from the raw input file ", EXCEL_FILE)
+            print("Creating new data file: ...", output_file[-20:], "from the raw input file ... ", EXCEL_FILE[-20:])
             print("Creating dataframes from local files")
             print("        Creating country information dataframe")
             dfcountry = pd.read_csv(CONSTANTS_FILE)
@@ -85,7 +86,7 @@ def main():
             print("Creating POP Server dataframe")
             dfpopserver = pd.read_csv(POPSERVER_FILE)
             print("        ... Done")
-            print("        Creating results dataframe")
+            print("Creating results dataframe")
             dfresults = pd.read_excel(EXCEL_FILE, encoding="ISO-8859-1")
             print("        ... Done")
             print("Dataframes Created")
@@ -93,7 +94,7 @@ def main():
             dfresults['Timestamp'] = pd.to_numeric(dfresults['Timestamp'], errors='coerce')
             print("        ... Done")
             print("Creating POP3 column that contains only one POP server id to allow lookup to work ")
-            dfresults['POP Unique'] = [x[:3] for x in dfresults['POP']]
+            dfresults['POP Unique'] = [x[:6] if '-' in x else x[:3] for x in dfresults['POP']]
             print("        ... Done")
             print('Data file used is: ', EXCEL_FILE, 'modified on :', getageoffile(EXCEL_FILE))
 
@@ -160,6 +161,10 @@ def main():
                 pivotcity = pd.pivot_table(dfresults, index=["Country Name", "City"],
                                                values=["Download", "Upload"],
                                                aggfunc=['count', 'sum', 'mean', 'median'])
+                pivotpop = pd.pivot_table(dfresults, index=["Country Name", "POP Unique", "POP City", "POP Country",
+                                                "POP Continent"],
+                                               values=["Download", "Upload"],
+                                               aggfunc=['count', 'sum', 'mean', 'median'])
                 print(file_suffix)
                 samesuffix = input("Use previous suffix? Y/y")
                 if samesuffix.lower() == "y":
@@ -172,6 +177,7 @@ def main():
                 pivotgeo.to_csv(PIVOT_GEO_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
                 pivotpeak.to_csv(PIVOT_PEAK_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
                 pivotcity.to_csv(PIVOT_CITY_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
+                pivotpop.to_csv(PIVOT_POP_FILE[:-4] + "_" + file_suffix + ".csv", index=True)
                 print("Your Pivot csv files are created and stored in the Data/Output folder.")
                 print("Pivot results excel file is going to be: ", PIVOT_FILE[:-4] + "_" + file_suffix + ".csv")
                 choicesmade.append("Pivot csv files created with a suffix of " + file_suffix)

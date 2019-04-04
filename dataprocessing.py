@@ -34,7 +34,7 @@ def addextradata(dfresults, dfcountry, dfpopserver):
     print("Renaming column names")
     dfresults.rename(index=str, columns={"Latitude_x": "Latitude", "Longitude_x": "Longitude", "Latitude_y": "CityLat",
                                          "Longitude_y": "CityLong", "Country_x": "CountryCode",
-                                         "Country_y": "Country Name", "POP_y": "POP Lookup"}, inplace=True)
+                                         "Country_y": "Country Name", "POP_y": "POP Lookup", "POP_x": "POP"}, inplace=True)
     return dfresults
 
 
