@@ -1,3 +1,5 @@
+05 April 2019
+Minor changes to data gathering - coding improvements.
 04 April 2019
 Added convertjson.py to extract data from json file from Cloudperf
 Works well

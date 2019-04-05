@@ -20,8 +20,8 @@ data_output = data_dir+'\\output'
 #  Data Sources
 
 CSV_FILE = data_input+'\\dailymail.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\dailymail.xlsx'
-CONSTANTS_FILE = data_sources+'\\constants.csv'  # contains data about city radii etc.
+EXCEL_FILE = data_input+'\\Pointtopictakentests20190404.xlsx'
+CONSTANTS_FILE = data_sources+'\\deconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
 COUNTRY_CODE_FILE = data_sources+'\\countrycode.csv'
@@ -37,7 +37,7 @@ PIVOT_ISP_FILE = data_output+'\\pivot_isp.csv'  # contains isp results
 PIVOT_GEO_FILE = data_output+'\\pivot_geo.csv'  # contains geo results
 PIVOT_PEAK_FILE = data_output+'\\pivot_peak.csv'  # contains peak time results
 PIVOT_CITY_FILE = data_output+'\\pivot_city.csv'  # contains city results
-PIVOT_POP_FILE = data_output+'\\pivot_pop.csv' # contains pop results
+PIVOT_POP_FILE = data_output+'\\pivot_pop.csv'  # contains pop results
 print('file names and constants have been defined')
 
 
@@ -77,7 +77,7 @@ def main():
                 print(output_file)
                 CONSTANTS_FILE = data_sources+'\\' + dailymail + 'constants.csv'
             else:
-                CONSTANTS_FILE = data_sources + '\\meconstants.csv'
+                CONSTANTS_FILE = data_sources + '\\deconstants.csv'
             print("Creating new data file: ...", output_file[-20:], "from the raw input file ... ", EXCEL_FILE[-20:])
             print("Creating dataframes from local files")
             print("        Creating country information dataframe")
