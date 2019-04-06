@@ -3,10 +3,11 @@ import os
 
 # Check we are in the correct directory
 print(os.getcwd())
-os.chdir("data/json")
+#  os.chdir("data/json")
+os.chdir("C:/Users/steve/Desktop/work_temp/androidconfig/TestResultsJobs/testresults-20190403160000")
 print(os.getcwd())
 # Change json_file csvfile as required for source and destination
-jobID = "fa1ead52-6615-40f8-b157-c1bb8af3ed29"
+jobID = "08b3c438-a675-4c74-9da4-e4f604b5e934"
 json_file = jobID + ".json"
 csvfile = json_file + '.csv'
 print('csvfile is: ', csvfile)
@@ -42,14 +43,14 @@ df = unpack(df, 0, 0)
 df = unpack(df, 'ResponseStatus', 0)
 df = unpack(df, 'ProbeInfo', 0)
 df = unpack(df, 'TestStatus', 0)
+cols = df.columns.tolist()
+new_cols = ['JobID', 'Datacentre', 'Throughput']
+cols = new_cols + cols
+print(cols)
 df['Throughput'] = (df['DownloadedBytes']*8)/(df['TotalTime']/1000)/1000000
 df['JobID'] = jobID
 df = df.apply(add_datacentre, axis=1)
-#  cols contains list of column headers in order required for final csv. Use df.columns.tolist() to get latest list
-cols = ['JobID', 'Datacentre', 'Throughput', 'CityName', 'ConnectionType', 'CountryCode', 'CountryName', 'TestDateTime',
-        'DownloadedBytes', 'TotalTime', 'ContentLength', 'Destination', 'Status', 'TimeToFirstByte', 'StatusCode',
-        'StatusText', 'ASN', 'AdvertisedSpeed', 'DNSResolver', 'GeolocationAccuracy', 'IPAddress', 'Latitude',
-        'Longitude', 'Network', 'NetworkID', 'Platform', 'ProbeID', 'Screensize', 'Version', 'StatusCode', 'StatusText']
+print(df.columns.tolist())
 df = df[cols]  # Creates df with only those columns in 'cols'. In this case we use all columns but change the order.
 df.to_csv(csvfile)
 

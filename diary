@@ -1,3 +1,6 @@
+06 April 2019
+Installed on laptop and changed some code so that simply adds new columns to front (left side of csv).
+This was necessary because not all columns exist so can't have fixed list.
 05 April 2019
 Minor changes to data gathering - coding improvements.
 04 April 2019
