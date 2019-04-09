@@ -5,7 +5,7 @@ from pathlib import Path
 
 # Check we are in the correct directory
 print(os.getcwd())
-subpath = "/testresults-20190404000000"  # To be used so we only need to change directory in one place
+subpath = "/badjson"  # To be used so we only need to change directory in one place
 csvfilename = subpath[1:] + ".csv"
 path = "S:/pythoncode/myprojects/work/datagathering/data/json/source" + subpath
 os.chdir(path)
@@ -57,7 +57,7 @@ def add_datacentre(df):
 
 
 # Go through all json files and create csv files
-for filename in glob.glob(os.path.join(path, '*.bad0404')):  # Uses glob to only use .json files
+for filename in glob.glob(os.path.join(path, '*.json')):  # Uses glob to only use .json files
     print('Filename is: ', filename)
     jobID = Path(filename).stem  # returns the filename with no path or extension info
     print('JobID is: ', jobID)
