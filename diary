@@ -1,3 +1,5 @@
+09 April 2019
+Added code to process each json file and then combine the resulting csvs to one combined csv
 06 April 2019
 Installed on laptop and changed some code so that simply adds new columns to front (left side of csv).
 This was necessary because not all columns exist so can't have fixed list.
