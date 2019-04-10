@@ -1,3 +1,5 @@
+10 April 2019
+Edited to work on me speed rank
 09 April 2019
 Added code to process each json file and then combine the resulting csvs to one combined csv
 Added combine_csv.py file so that I can use separately from main program.. Will be useful for other projects.
