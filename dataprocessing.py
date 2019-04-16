@@ -38,17 +38,17 @@ def addextradata(dfresults, dfcountry, dfpopserver):
     return dfresults
 
 
-def getdistance(df):
+def getdistance(df) -> float:
     lat_distance = (df['Latitude_x'] - df['Latitude_y']) * df['Latitude-Length']
     long_distance = (df['Longitude_x'] - df['Longitude_y']) * df['Longitude-Length']
     return sqrt((lat_distance ** 2) + (long_distance ** 2))
 
 
-def getpeak(df):
+def getpeak(df) -> bool:
     return df['Peak-End-GMT'] >= df['Hour'] >= df["Peak-Start-GMT"]
 
 
-def filterbycountry(df, countrycodeset):
+def filterbycountry(df, countrycodeset: list):
     df = df[df['CountryCode'].isin(countrycodeset)]
     return df
 

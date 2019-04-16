@@ -20,7 +20,7 @@ data_output = data_dir+'\\output'
 #  Data Sources
 
 CSV_FILE = data_input+'\\dailymail.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\2019marchraw_Filtered.xlsx'
+EXCEL_FILE = data_input+'\\february2019new_Filtered.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
@@ -30,6 +30,8 @@ POPSERVER_FILE = data_sources+'\\popservers.csv'
 #  There are 2 and 3 letter codes needed for processing mydsp data. Mediasmart only used 2 letter codes
 mecountrycodeset = ["AE", "BH", "EG", "IL", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR",
                     "ARE", "BHR", "EGY", "ISR", "IRN", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "TUR"]
+mecountrycodeset_not_ISR = ["AE", "BH", "EG", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR",
+                    "ARE", "BHR", "EGY", "IRN", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "TUR"]
 choicesmade = []
 #  Data Output
 PIVOT_FILE = data_output+'\\pivot_results.csv'  # contains summary results
@@ -69,15 +71,15 @@ def main():
                     pass
         if ans == 2:
             output_file = data_output + '\\output.csv'  # this is the raw data with fields for city and peak time info
-            dailymail = input('If this is for DailyMail enter street code or else enter nothing \n '
-                              'choices are KPG, IPL, CGD, MRD, TBS, CRT, CMP, FWY, GCC, AST, KPL\n')
-            if dailymail:
-                print("Producing results for street code", dailymail, ". Results going to : ", output_file)
-                output_file = data_output + '\\dailymail\\' + dailymail + '_output.csv'
-                print(output_file)
-                CONSTANTS_FILE = data_sources+'\\' + dailymail + 'constants.csv'
-            else:
-                CONSTANTS_FILE = data_sources + '\\meconstants.csv'
+            # dailymail = input('If this is for DailyMail enter street code or else enter nothing \n '
+            #                   'choices are KPG, IPL, CGD, MRD, TBS, CRT, CMP, FWY, GCC, AST, KPL\n')
+            # if dailymail:
+            #     print("Producing results for street code", dailymail, ". Results going to : ", output_file)
+            #     output_file = data_output + '\\dailymail\\' + dailymail + '_output.csv'
+            #     print(output_file)
+            #     CONSTANTS_FILE = data_sources+'\\' + dailymail + 'constants.csv'
+            # else:
+            #     CONSTANTS_FILE = data_sources + '\\meconstants.csv'
             print("Creating new data file: ...", output_file[-20:], "from the raw input file ... ", EXCEL_FILE[-20:])
             print("Creating dataframes from local files")
             print("        Creating country information dataframe")
@@ -106,9 +108,9 @@ def main():
             print('Adding new data to data file - Country, City, Peak, POP and District information.')
             dfresults = addextradata(dfresults, dfcountry, dfpopserver)
             print("Countries to filter by: \n")
-            print("1 All Countries")
+            print("1 Include All Countries")
             print("2 ME Countries: ", mecountrycodeset)
-            print("3 Bahrain")
+            print("3 ME Countries - not Israel", mecountrycodeset_not_ISR)
             print("4 Enter Two Letter Country Code {not available yet")
             filterresponse = ""
             allowedresponses = ["1", "2", "3", "4"]
@@ -121,16 +123,17 @@ def main():
                     dfresults = filterbycountry(dfresults, mecountrycodeset)
                     choicesmade.append("Data File created for Middle East Countries")
                 if filterresponse.lower() == '3':
-                    dfresults = filterbycountry(dfresults, ["BHR", "BH"])
-                    choicesmade.append("Data File created for Bahrain only")
+                    dfresults = filterbycountry(dfresults, mecountrycodeset_not_ISR)
+                    choicesmade.append("Data File created for Middle East Countries excluding Israel")
                 if filterresponse.lower() == '4':
                     print("This option not available yet. You should see all results.")  # todo write code to allow choice
                     choicesmade.append("Data File created for all countries")
-            if dailymail:
-                file_suffix = dailymail
-                dfresults['Street Code'] = [dailymail if x is True else 'Ignore' for x in dfresults['City']]
-            else:
-                file_suffix = input("Enter text to add to end of output file name")
+            # if dailymail:
+            #     file_suffix = dailymail
+            #     dfresults['Street Code'] = [dailymail if x is True else 'Ignore' for x in dfresults['City']]
+            # else:
+            #     file_suffix = input("Enter text to add to end of output file name")
+            file_suffix = input("Enter text to add to end of output file name")
             output_file = output_file[:-4] + "_" + file_suffix + ".csv"
             print("Output file is going to be: ", output_file)
             try:
@@ -166,7 +169,7 @@ def main():
                                                values=["Download", "Upload"],
                                                aggfunc=['count', 'sum', 'mean', 'median'])
                 print(file_suffix)
-                samesuffix = input("Use previous suffix? Y/y")
+                samesuffix = input("Use previous suffix? Y/y \n")
                 if samesuffix.lower() == "y":
                     pass
                 else:
