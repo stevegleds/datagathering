@@ -26,13 +26,22 @@ DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to B
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
 COUNTRY_CODE_FILE = data_sources+'\\countrycode.csv'
 POPSERVER_FILE = data_sources+'\\popservers.csv'
+PROVIDERS_FILE = data_sources+'\\providers.xlsx'
 #  countrycodeset is used to filter out unneeded countries. Comment out 2 or 3 letter version as needed
 #  There are 2 and 3 letter codes needed for processing mydsp data. Mediasmart only used 2 letter codes
 mecountrycodeset = ["AE", "BH", "EG", "IL", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR",
                     "ARE", "BHR", "EGY", "ISR", "IRN", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "TUR"]
 mecountrycodeset_not_ISR = ["AE", "BH", "EG", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR",
-                    "ARE", "BHR", "EGY", "IRN", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "TUR"]
+                            "ARE", "BHR", "EGY", "IRN", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "TUR"]
 choicesmade = []
+columns_list = ['POP', 'Download', 'Upload', 'Latency',  'ISP2', 'Providers', 'Country Name', 'Provider Country',
+                'Provider', 'Owner', 'Group?', 'Rank', 'Timestamp', 'Date Time', 'Latitude', 'Longitude',
+                'ConnectionType', 'DeviceID',
+                'AppID', 'ExchangeName', 'CountryCode', 'IP', 'IPAddress', 'AppBundle', 'AppName', 'ModelName',
+                'ModelName2', 'Count', 'DownloadCount', 'UploadCount', 'POP Unique', 'Capital',
+                'Country Code 2', 'Country Code 3', 'CityLat', 'CityLong', 'Latitude-Length', 'Longitude-Length',
+                'Radius', 'Peak-Start-GMT', 'Peak-End-GMT', 'POP Lookup', 'POP City', 'POP Country', 'POP Continent',
+                'Distance', 'City', 'Hour', 'Peak End', 'Peak Start', 'Peak', 'ServerIP', 'ServerCountry', 'ISP']
 #  Data Output
 PIVOT_FILE = data_output+'\\pivot_results.csv'  # contains summary results
 PIVOT_ISP_FILE = data_output+'\\pivot_isp.csv'  # contains isp results
@@ -63,7 +72,8 @@ def main():
             outputfilenameok = False
             while not outputfilenameok:
                 try:
-                    output_file = data_output + '\\' + input("Existing csv file name e.g. 'output_20190129' with no ext: ") + ".csv"
+                    output_file = data_output + '\\' + input("Existing csv file name e.g. "
+                                                             "'output_20190129' with no ext: ") + ".csv"
                     dfresults = pd.read_csv(output_file, encoding="ISO-8859-1")
                     print(dfresults.head())
                     outputfilenameok = True
@@ -91,6 +101,9 @@ def main():
             print("Creating results dataframe")
             dfresults = pd.read_excel(EXCEL_FILE, encoding="ISO-8859-1")
             print("        ... Done")
+            print("Creating providers dataframe")
+            dfproviders = pd.read_excel(PROVIDERS_FILE, encoding="ISO-8859-1")
+            print("        ... Done")
             print("Dataframes Created")
             print("Converting timestamp field to numeric to ensure good date time data")
             dfresults['Timestamp'] = pd.to_numeric(dfresults['Timestamp'], errors='coerce')
@@ -99,14 +112,13 @@ def main():
             dfresults['POP Unique'] = [x[:6] if '-' in x else x[:3] for x in dfresults['POP']]
             print("        ... Done")
             print('Data file used is: ', EXCEL_FILE, 'modified on :', getageoffile(EXCEL_FILE))
-
             print("Use the following files?")
             print('Data file used is: ', EXCEL_FILE)
             response = input("Y to continue; any other key to abort \n")
             if not response.lower() == 'y':
                 pass  #TODO this is pointless because the next section is still completed
             print('Adding new data to data file - Country, City, Peak, POP and District information.')
-            dfresults = addextradata(dfresults, dfcountry, dfpopserver)
+            dfresults = addextradata(dfresults, dfcountry, dfpopserver, dfproviders)
             print("Countries to filter by: \n")
             print("1 Include All Countries")
             print("2 ME Countries: ", mecountrycodeset)
@@ -126,7 +138,8 @@ def main():
                     dfresults = filterbycountry(dfresults, mecountrycodeset_not_ISR)
                     choicesmade.append("Data File created for Middle East Countries excluding Israel")
                 if filterresponse.lower() == '4':
-                    print("This option not available yet. You should see all results.")  # todo write code to allow choice
+                    print("This option not available yet. You should see all results.")
+                    # todo write code to allow choice
                     choicesmade.append("Data File created for all countries")
             # if dailymail:
             #     file_suffix = dailymail
@@ -136,6 +149,7 @@ def main():
             file_suffix = input("Enter text to add to end of output file name")
             output_file = output_file[:-4] + "_" + file_suffix + ".csv"
             print("Output file is going to be: ", output_file)
+            dfresults = dfresults[columns_list]
             try:
                 print("Saving output csv file")
                 dfresults.to_csv(output_file)

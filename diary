@@ -1,3 +1,7 @@
+17 April 2019
+Add providers as a data source to allow for grouping by ISP etc.
+Set up list of column headings so I can have the columns in the order i like.
+#todo add column to check provider country = result country
 16 April 2019
 Commented out Daily Mail. Not deleted in case I need to repeat. Maybe later move to 'archive file'
 Add type annotations to some functions

@@ -3,7 +3,7 @@ from math import sqrt
 import pandas as pd
 
 
-def addextradata(dfresults, dfcountry, dfpopserver):
+def addextradata(dfresults, dfcountry, dfpopserver, dfproviders):
     dfresults['Date Time'] = pd.to_datetime(dfresults['Timestamp'], unit='ms')
     print("dfresults head:\n", dfresults.head())
     print("dfcountry head:\n", dfcountry.head())
@@ -14,6 +14,10 @@ def addextradata(dfresults, dfcountry, dfpopserver):
     print("Adding POP Server information: City, Country and Continent of POP Servers")
     dfresults = pd.merge(left=dfresults, right=dfpopserver, how='left', left_on='POP Unique',
                          right_on='POP')
+    print("        ... Done")
+    print("Adding Providers information: Country, Owner, Group etc.")
+    dfresults = pd.merge(left=dfresults, right=dfproviders, how='left', left_on='ISP2',
+                         right_on='Providers')
     print("        ... Done")
     print("Calculating distance of each result from the capital")
     dfresults['Distance'] = dfresults.apply(getdistance, axis=1)
