@@ -1,3 +1,6 @@
+18 April 2019
+Minor changes Including changing provider from providers.xlsx to MNO to prevent errors later on by mistaking
+it for provider(s). There are many provider names making up an MNO.
 17 April 2019
 Add providers as a data source to allow for grouping by ISP etc.
 Set up list of column headings so I can have the columns in the order i like.

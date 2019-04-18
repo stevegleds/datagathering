@@ -34,14 +34,14 @@ mecountrycodeset = ["AE", "BH", "EG", "IL", "IR", "JO", "KW", "LB", "OM", "QA", 
 mecountrycodeset_not_ISR = ["AE", "BH", "EG", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR",
                             "ARE", "BHR", "EGY", "IRN", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "TUR"]
 choicesmade = []
-columns_list = ['POP', 'Download', 'Upload', 'Latency',  'ISP2', 'Providers', 'Country Name', 'Provider Country',
-                'Provider', 'Owner', 'Group?', 'Rank', 'Timestamp', 'Date Time', 'Latitude', 'Longitude',
+columns_list = ['POP', 'Download', 'Upload', 'Latency', 'ISP',  'ISP2', 'Providers', 'Country Name', 'Provider Country',
+                'MNO', 'Owner', 'Group?', 'Rank', 'Timestamp', 'Date Time', 'Latitude', 'Longitude',
                 'ConnectionType', 'DeviceID',
                 'AppID', 'ExchangeName', 'CountryCode', 'IP', 'IPAddress', 'AppBundle', 'AppName', 'ModelName',
                 'ModelName2', 'Count', 'DownloadCount', 'UploadCount', 'POP Unique', 'Capital',
                 'Country Code 2', 'Country Code 3', 'CityLat', 'CityLong', 'Latitude-Length', 'Longitude-Length',
                 'Radius', 'Peak-Start-GMT', 'Peak-End-GMT', 'POP Lookup', 'POP City', 'POP Country', 'POP Continent',
-                'Distance', 'City', 'Hour', 'Peak End', 'Peak Start', 'Peak', 'ServerIP', 'ServerCountry', 'ISP']
+                'Distance', 'City', 'Hour', 'Peak End', 'Peak Start', 'Peak', 'ServerIP', 'ServerCountry']
 #  Data Output
 PIVOT_FILE = data_output+'\\pivot_results.csv'  # contains summary results
 PIVOT_ISP_FILE = data_output+'\\pivot_isp.csv'  # contains isp results
