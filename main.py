@@ -34,7 +34,7 @@ mecountrycodeset = ["AE", "BH", "EG", "IL", "IR", "JO", "KW", "LB", "OM", "QA", 
 mecountrycodeset_not_ISR = ["AE", "BH", "EG", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR",
                             "ARE", "BHR", "EGY", "IRN", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "TUR"]
 choicesmade = []
-columns_list = ['POP', 'Download', 'Upload', 'Latency', 'ISP',  'ISP2', 'Providers', 'Country Name', 'Provider Country',
+columns_list = ['POP', 'Download', 'Upload', 'Latency', 'ISP',  'ISP2', 'Providers', 'Country Name', 'MNO Country',
                 'MNO', 'Owner', 'Group?', 'Rank', 'Timestamp', 'Date Time', 'Latitude', 'Longitude',
                 'ConnectionType', 'DeviceID',
                 'AppID', 'ExchangeName', 'CountryCode', 'IP', 'IPAddress', 'AppBundle', 'AppName', 'ModelName',
