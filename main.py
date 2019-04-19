@@ -60,6 +60,7 @@ def main():
             f"1 Use An Existing Data File That I Will Specify \n"
             f"2 Create New Data file including Country Info file from constants file \n and Parse Raw File {EXCEL_FILE}\n" 
             f"3 Create Pivot table Country > City > Peak > Type\n"
+            f"4 Filter output by POP \n"
         )
         print(menu)
         print("Previous actions: ", choicesmade)
@@ -198,6 +199,25 @@ def main():
                 print("Your Pivot csv files are created and stored in the Data/Output folder.")
                 print("Pivot results excel file is going to be: ", PIVOT_FILE[:-4] + "_" + file_suffix + ".csv")
                 choicesmade.append("Pivot csv files created with a suffix of " + file_suffix)
+        if ans == 4:
+            if outputfilecreated != True:
+                print("Create an output file first")
+            else:
+                print("Use output file you just created? \n", output_file)
+                response = input("Y/y to use existing file. anything else will abort\n")
+                if response.lower() != 'y':
+                    pass
+                else:
+                    # use dfresults dataframe and filter out POP
+                    pop_choice = input("Enter CF or DO to filter by POP. Note: Only DO will be filtered because this is WIP.\n")
+                    if pop_choice.lower() not in ['cf', 'do']:
+                        print("You should have entered cf or do. Aborting.")
+                    filter_list = ["DO-AMS"]
+                    dfresults_filtered = dfresults.loc[dfresults['POP'].isin(filter_list)]
+                    filtered_file = output_file[:-3]+'_'+pop_choice+'.csv'
+                    print("Saving output csv file")
+                    dfresults_filtered.to_csv(filtered_file)
+                    print("Your results have been saved in:", filtered_file)
 
 
 if __name__ == "__main__":
