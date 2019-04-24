@@ -20,7 +20,7 @@ data_output = data_dir+'\\output'
 #  Data Sources
 
 CSV_FILE = data_input+'\\dailymail.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\february2019new_Filtered.xlsx'
+EXCEL_FILE = data_input+'\\23april_Filtered.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
@@ -34,11 +34,11 @@ mecountrycodeset = ["AE", "BH", "EG", "IL", "IR", "JO", "KW", "LB", "OM", "QA", 
 mecountrycodeset_not_ISR = ["AE", "BH", "EG", "IR", "JO", "KW", "LB", "OM", "QA", "SA", "TR",
                             "ARE", "BHR", "EGY", "IRN", "JOR", "KWT", "LBN", "OMN", "QAT", "SAU", "TUR"]
 choicesmade = []
-columns_list = ['POP', 'Download', 'Upload', 'Latency', 'ISP',  'ISP2', 'Providers', 'Country Name', 'MNO Country',
-                'MNO', 'Owner', 'Group?', 'Rank', 'Timestamp', 'Date Time', 'Latitude', 'Longitude',
+columns_list = ['POP Unique', 'Download', 'Upload', 'Latency', 'ISP',  'ISP2', 'Providers', 'Country Name',
+                'MNO Country', 'MNO', 'Owner', 'Group?', 'Rank', 'Timestamp', 'Date Time', 'Latitude', 'Longitude',
                 'ConnectionType', 'DeviceID',
                 'AppID', 'ExchangeName', 'CountryCode', 'IP', 'IPAddress', 'AppBundle', 'AppName', 'ModelName',
-                'ModelName2', 'Count', 'DownloadCount', 'UploadCount', 'POP Unique', 'Capital',
+                'ModelName2', 'Count', 'DownloadCount', 'UploadCount', 'POP', 'Capital',
                 'Country Code 2', 'Country Code 3', 'CityLat', 'CityLong', 'Latitude-Length', 'Longitude-Length',
                 'Radius', 'Peak-Start-GMT', 'Peak-End-GMT', 'POP Lookup', 'POP City', 'POP Country', 'POP Continent',
                 'Distance', 'City', 'Hour', 'Peak End', 'Peak Start', 'Peak', 'ServerIP', 'ServerCountry']
@@ -151,6 +151,7 @@ def main():
             output_file = output_file[:-4] + "_" + file_suffix + ".csv"
             print("Output file is going to be: ", output_file)
             dfresults = dfresults[columns_list]
+            dfresults.index.name = "ID"
             try:
                 print("Saving output csv file")
                 dfresults.to_csv(output_file)
