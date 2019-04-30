@@ -2,14 +2,23 @@ import pandas as pd
 import os
 import glob
 from pathlib import Path
-
+'''
+Usage
+Converts json to csv
+This is done with unpack() which takes a dataframe and a column to unpack
+Need to change subpath for each folder. Can't work in one folder because filenames are same and data needs to be merged.
+Individual csv files are created for each json file
+Finally, all csv files are combined to one csv with the name of the folder (as given in subpath)
+'''
 # Check we are in the correct directory
 print(os.getcwd())
-subpath = "/badjson"  # To be used so we only need to change directory in one place
+subpath = "/testresults-20190430000000"  # To be used so we only need to change directory in one place
 csvfilename = subpath[1:] + ".csv"
-path = "S:/pythoncode/myprojects/work/datagathering/data/json/source" + subpath
+path = "S:/pythoncode/myprojects/work/datagathering/data/json/20190430/source" + subpath
 os.chdir(path)
 print(os.getcwd())
+cf_hit_text = "CF-Cache-Status: HIT"
+cf_ray_text = "CF-RAY"
 
 
 #  Unpack dictionary elements and add one column for each dictionary field.
@@ -25,6 +34,7 @@ def unpack(df, column, fillna=None):
 
 
 # filename is the json file and this process converts json to dataframe and then exports to csv
+# We need to 'unpack' some fields that contain dictionaries of data to produce column data
 def jsontocsv(filename):
     df = pd.read_json(filename, lines=True)
     df = unpack(df, 'HttpTestResults', 0)
@@ -33,12 +43,18 @@ def jsontocsv(filename):
     df = unpack(df, 'ProbeInfo', 0)
     # df = unpack(df, 'TestStatus', 0)
     cols = df.columns.tolist()
-    new_cols = ['JobID', 'Datacentre', 'Throughput']
+    # create list of extra data columns that will store additional data
+    new_cols = ['JobID', 'Datacentre', 'Throughput', 'CF_HIT', 'CF_RAY']
     cols = new_cols + cols
     print(cols)
+    # convert DownloadBytes to our usual measure of Mb/s
     df['Throughput'] = (df['DownloadedBytes'] * 8) / (df['TotalTime'] / 1000) / 1000000
+    # JobID column stores the name of the Job so that we know which job the data came from
     df['JobID'] = jobID
+    #  Creates user-friendly title for Data Centre e.g. CloudFlare instead of the long url
     df = df.apply(add_datacentre, axis=1)
+    #  Parse information from the header for CF_RAY and CF_HIT to help with quality of analysis
+    df = df.apply(add_cf_header_info, axis=1)
     print(df.columns.tolist())
     df = df[cols]  # Creates df with only those columns in 'cols'. In this case we use all columns but change the order.
     df.to_csv(csvfile)
@@ -53,6 +69,22 @@ def add_datacentre(df):
         df['Datacentre'] = 'Heficed'
     else:
         df['Datacentre'] = 'Other'
+    return df
+
+
+def add_cf_header_info(df):
+    #  Note the use of str() to work with Headers object.
+    #  It would be better to convert this to string - perhaps during reading the csv
+    if cf_hit_text in str(df['Headers']):
+        df['CF_HIT'] = "Hit"
+    else:
+        df['CF_HIT'] = 'Miss'
+    if cf_ray_text in str(df['Headers']):
+        cf_ray_location = str(df["Headers"]).find(cf_ray_text)  # where does CF_RAY start
+        df['CF_RAY'] = str(df['Headers'])[cf_ray_location+25:cf_ray_location+28]
+        # only need last 3 chars of CF_RAY data
+    else:
+        df['CF_RAY'] = 'Null'
     return df
 
 

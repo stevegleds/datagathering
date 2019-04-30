@@ -8,7 +8,7 @@ CSV files should have same column headings.
 # Check we are in the correct directory
 print(os.getcwd())
 csvfilename = "cloudperfcombined" + ".csv"
-path = "S:/pythoncode/myprojects/work/datagathering/data/json/results"
+path = "S:/pythoncode/myprojects/work/datagathering/data/json/20190430/results"
 os.chdir(path)  # Change directory to directory where files are stored
 print(os.getcwd())  # check directory has changed correctly.
 # go through all csv files and create single csv file

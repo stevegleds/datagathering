@@ -1,3 +1,5 @@
+30 April 2019
+Updated convertjson to include parse of new 'Headers' series to search for certain text and create new columns.
 24 April 2019
 Moved Pop Unique to front of output file and ID label to index
 19 April 2019
