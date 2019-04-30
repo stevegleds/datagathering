@@ -63,7 +63,7 @@ def jsontocsv(filename):
 
 #  Simple function to lookup destination data nad replace with user-friendly data
 def add_datacentre(df):
-    if df['Destination'] == "https://kong.speedcheckerapi.com:8443/download/100mb.zip?apikey=1a2b3c4d-1975-1978-9876-9f8e7d6c5b4a":
+    if df['Destination'] == "https://chi-michiama.it/gfx/100mb.jpg":
         df['Datacentre'] = 'Cloudflare'
     elif df['Destination'] == 'http://196.251.248.78/100mb':
         df['Datacentre'] = 'Heficed'
