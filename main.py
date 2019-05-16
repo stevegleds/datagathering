@@ -20,7 +20,7 @@ data_output = data_dir+'\\output'
 #  Data Sources
 
 CSV_FILE = data_input+'\\dailymail.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\23april_Filtered.xlsx'
+EXCEL_FILE = data_input+'\\jeddah-may14.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
@@ -41,7 +41,8 @@ columns_list = ['POP Unique', 'Download', 'Upload', 'Latency', 'ISP',  'ISP2', '
                 'ModelName2', 'Count', 'DownloadCount', 'UploadCount', 'POP', 'Capital',
                 'Country Code 2', 'Country Code 3', 'CityLat', 'CityLong', 'Latitude-Length', 'Longitude-Length',
                 'Radius', 'Peak-Start-GMT', 'Peak-End-GMT', 'POP Lookup', 'POP City', 'POP Country', 'POP Continent',
-                'Distance', 'City', 'Hour', 'Peak End', 'Peak Start', 'Peak', 'ServerIP', 'ServerCountry']
+                'Distance', 'City', 'TOD', 'AM', 'PM', 'Peak', 'Hour', 'Peak End', 'Peak Start', 'ServerIP',
+                'ServerCountry']
 #  Data Output
 PIVOT_FILE = data_output+'\\pivot_results.csv'  # contains summary results
 PIVOT_ISP_FILE = data_output+'\\pivot_isp.csv'  # contains isp results

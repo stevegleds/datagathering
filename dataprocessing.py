@@ -32,8 +32,25 @@ def addextradata(dfresults, dfcountry, dfpopserver, dfproviders):
     dfresults['Peak End'] = dfresults['Country Code 2'].map(dfcountry.set_index('Country Code 2')['Peak-End-GMT'])
     dfresults['Peak Start'] = dfresults['Country Code 2'].map(dfcountry.set_index('Country Code 2')['Peak-Start-GMT'])
     print("        ... Done")
+    print("Adding AM Start and End times from country data")
+    dfresults['AM End'] = dfresults['Country Code 2'].map(dfcountry.set_index('Country Code 2')['AM-End-GMT'])
+    dfresults['AM Start'] = dfresults['Country Code 2'].map(dfcountry.set_index('Country Code 2')['AM-Start-GMT'])
+    print("        ... Done")
+    print("Adding PM Start and End times from country data")
+    dfresults['PM End'] = dfresults['Country Code 2'].map(dfcountry.set_index('Country Code 2')['PM-End-GMT'])
+    dfresults['PM Start'] = dfresults['Country Code 2'].map(dfcountry.set_index('Country Code 2')['PM-Start-GMT'])
+    print("        ... Done")
     print("Calculating if each result is during peak time or not")
     dfresults['Peak'] = dfresults.apply(getpeak, axis=1)
+    print("        ... Done")
+    print("Calculating if each result is during AM or not")
+    dfresults['AM'] = dfresults.apply(get_am, axis=1)
+    print("        ... Done")
+    print("Calculating if each result is during PM or not")
+    dfresults['PM'] = dfresults.apply(get_pm, axis=1)
+    print("        ... Done")
+    print("Adding time of day column")
+    dfresults['TOD'] = dfresults.apply(get_time_of_day, axis=1)
     print("        ... Done")
     print("Renaming column names")
     dfresults.rename(index=str, columns={"Latitude_x": "Latitude", "Longitude_x": "Longitude", "Latitude_y": "CityLat",
@@ -50,6 +67,22 @@ def getdistance(df) -> float:
 
 def getpeak(df) -> bool:
     return df['Peak-End-GMT'] >= df['Hour'] >= df["Peak-Start-GMT"]
+
+
+def get_pm(df) -> bool:
+    return df['PM-End-GMT'] >= df['Hour'] >= df["PM-Start-GMT"]
+
+
+def get_am(df) -> bool:
+    return df['AM-End-GMT'] >= df['Hour'] >= df["AM-Start-GMT"]
+
+
+def get_time_of_day(df) -> str:
+    if df['AM']:
+        return 'AM'
+    elif df['PM']:
+        return 'PM'
+    return 'NA'
 
 
 def filterbycountry(df, countrycodeset: list):
