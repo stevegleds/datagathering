@@ -20,7 +20,7 @@ data_output = data_dir+'\\output'
 #  Data Sources
 
 CSV_FILE = data_input+'\\dailymail.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\jeddah-may14.xlsx'
+EXCEL_FILE = data_input+'\\jeddah-may20.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
