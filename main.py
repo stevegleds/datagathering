@@ -148,7 +148,7 @@ def main():
             #     dfresults['Street Code'] = [dailymail if x is True else 'Ignore' for x in dfresults['City']]
             # else:
             #     file_suffix = input("Enter text to add to end of output file name")
-            file_suffix = input("Enter text to add to end of output file name")
+            file_suffix = input("Enter text to add to end of output file name \n")
             output_file = output_file[:-4] + "_" + file_suffix + ".csv"
             print("Output file is going to be: ", output_file)
             dfresults = dfresults[columns_list]
