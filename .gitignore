@@ -1,4 +1,9 @@
-
+# Created by Steve 17 June 2019
+/data/input
+/data/output
+/data/old
+/data/logs
+/data/json
 # Created by https://www.gitignore.io/api/pycharm,python,django
 
 ### Django ###
