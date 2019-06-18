@@ -20,7 +20,7 @@ data_output = data_dir+'\\output'
 #  Data Sources
 
 # CSV_FILE = data_input+'\\dailymail.csv'  # this is the raw data
-EXCEL_FILE = data_input+'\\jeddah-june06.xlsx'
+EXCEL_FILE = data_input+'\\jeddah-june17.xlsx'
 CONSTANTS_FILE = data_sources+'\\meconstants.csv'  # contains data about city radii etc.
 DISTRICTS_FILE = data_sources+'\\districts.csv'  # lookup table of latitude to Bahrain districts
 MYDSP_FILE = data_input+'\\mydsp_nov2018_jan2019.xlsx'
@@ -62,6 +62,7 @@ def main():
             f"2 Create New Data file including Country Info file from constants file \n and Parse Raw File {EXCEL_FILE}\n" 
             f"3 Create Pivot table Country > City > Peak > Type\n"
             f"4 Filter output by POP \n"
+            f"5 Quit \n"
         )
         print(menu)
         print("Previous actions: ", choicesmade)
@@ -220,6 +221,8 @@ def main():
                     print("Saving output csv file")
                     dfresults_filtered.to_csv(filtered_file)
                     print("Your results have been saved in:", filtered_file)
+        if ans == 5:
+            ans = False
 
 
 if __name__ == "__main__":
