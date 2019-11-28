@@ -71,17 +71,18 @@ def main():
         except:
             print('Please choose a number')
         if ans == 1:
-            outputfilecreated = True
-            outputfilenameok = False
-            while not outputfilenameok:
-                try:
-                    output_file = data_output + '\\' + input("Existing csv file name e.g. "
-                                                             "'output_20190129' with no ext: ") + ".csv"
-                    dfresults = pd.read_csv(output_file, encoding="ISO-8859-1")
-                    print(dfresults.head())
-                    outputfilenameok = True
-                except:
-                    pass
+            # outputfilecreated = True
+            # outputfilenameok = False
+            # while not outputfilenameok:
+            #     try:
+            #         output_file = data_output + '\\' + input("Existing csv file name e.g. "
+            #                                                  "'output_20190129' with no ext: ") + ".csv"
+            #         dfresults = pd.read_csv(output_file, encoding="ISO-8859-1")
+            #         print(dfresults.head())
+            #         outputfilenameok = True
+            #     except:
+            #         pass
+            pass
         if ans == 2:
             output_file = data_output + '\\output.csv'  # this is the raw data with fields for city and peak time info
             # dailymail = input('If this is for DailyMail enter street code or else enter nothing \n '
