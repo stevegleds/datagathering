@@ -27,6 +27,9 @@ Installed on laptop and changed some code so that simply adds new columns to fro
 This was necessary because not all columns exist so can't have fixed list.
 05 April 2019
 Minor changes to data gathering - coding improvements.
+28 November 2019
+Added AlKharj sample data and site info to data folder ready for testing
+
 04 April 2019
 Added convertjson.py to extract data from json file from Cloudperf
 Works well
